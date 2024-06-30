@@ -10,6 +10,7 @@ public:
     string usertype;
     string username;
     string password;
+    bool isAdmin;
     vector <pair<int, int>>cart_vector;
 };
 

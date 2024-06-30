@@ -23,9 +23,10 @@ public:
 	static int romance_size;
 	static int non_fiction_size; 
 	static int science_fiction_size;
-	static int users_size;
 
-	static void file_to_vector(string file, vector<Book> selectedv,int size);
+	static User* selectedUser;
+
+	static void file_to_vector(string file, vector<Book>& selectedv,int size);
 	static void vector_to_file(string selectedFile, vector<Book> selectedv);
 
 	static void file_to_sizes();

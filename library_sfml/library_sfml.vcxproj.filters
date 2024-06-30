@@ -36,6 +36,9 @@
     <ClCompile Include="signup_page.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="navbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_management.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="signup_page.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="navbar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

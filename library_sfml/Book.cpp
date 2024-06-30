@@ -12,3 +12,16 @@ Book::Book(string _title, string _author, string _description, string _type, str
 		review = _review;
 		quantity = _quantity;
 }
+// Default constructor
+Book::Book() {
+    // You can initialize members with default values if needed
+    title = "";
+    author = "";
+    description = "";
+    type = "";
+    status = "";
+    price = "";
+    numofpages = "";
+    review = "";
+    quantity = "";
+}

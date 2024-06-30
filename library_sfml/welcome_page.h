@@ -16,5 +16,7 @@ public:
     texts libraryName;
     welcome_page();
     void draw_starting_page(RenderWindow& window);
+    photos logo;
+
 };
 

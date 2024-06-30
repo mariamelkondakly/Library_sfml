@@ -12,10 +12,15 @@ class buttons
 public:
 	RectangleShape button;
 	Text buttonText;
-	buttons(int posx, int posy, string buttonName);
+	buttons(int posx, int posy, string buttonName, bool isNav);
 	void buttonDraw(RenderWindow& window);
+	void onHover();
+	void onUnHover();
 	FloatRect button_float;
 };
+
+
+
 
 class essentials {
 public:
@@ -37,6 +42,7 @@ public:
 	static int success[3];
 	static int icon[3];
 	static int ntexts[3];
+	static int background[3];
 
 
 };
@@ -47,6 +53,9 @@ public:
 	Text label;
 	Circle(int posx, int posy, string textContent);
 	void circleDraw(RenderWindow& window);
+	FloatRect CheckFloat;
+	void onCheck();
+	void onUncheck();
 };
 
 class TextField {
@@ -56,5 +65,17 @@ public:
 	string data;
 	TextField(int posx, int posy);
 	void fieldDraw(RenderWindow& window);
+	FloatRect fieldFloat;
+	void onselect();
+	void onunselect();
+	static void inputHandelling(Event event, bool isPassword, TextField& field);
+	bool inputEntered;
+};
+
+class photos {
+public:
+	Texture picTexture;
+	photos(string path,int posx,int posy,float scalex, float scaley);
+	Sprite pic;
 };
 

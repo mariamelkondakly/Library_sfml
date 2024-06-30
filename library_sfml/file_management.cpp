@@ -12,7 +12,7 @@ int file_management::mystery_size;
 int file_management::romance_size;
 int file_management::non_fiction_size;
 int file_management::science_fiction_size;
-int file_management::users_size;
+User* file_management::selectedUser = nullptr;
 
 
 void file_management::vector_to_file(string selectedFile, vector<Book> selectedv)
@@ -36,18 +36,18 @@ void file_management::vector_to_file(string selectedFile, vector<Book> selectedv
     file.close();
 }
 
-void file_management::file_to_vector(string selectedFile, vector<Book> selectedv, int size)
-//converting file to the fantasy struct
+void file_management::file_to_vector(string selectedFile, vector<Book>& selectedv, int size)
 {
     string line;
     int index;
+
     ifstream file(selectedFile);
 
     if (file.is_open()) {
+        selectedv.resize(size); // Ensure the vector is resized to the correct size
         for (int i = 0; i < size; i++) {
             index = 0;
-            while (getline(file, line))
-            {
+            while (getline(file, line)) {
                 if (index == 0)         selectedv[i].title = line;
                 else if (index == 1)    selectedv[i].author = line;
                 else if (index == 2)    selectedv[i].description = line;
@@ -56,15 +56,16 @@ void file_management::file_to_vector(string selectedFile, vector<Book> selectedv
                 else if (index == 5)    selectedv[i].price = line;
                 else if (index == 6)    selectedv[i].numofpages = line;
                 else if (index == 7)    selectedv[i].review = line;
-                else if (index == 8)     selectedv[i].quantity = line;
+                else if (index == 8)    selectedv[i].quantity = line;
                 index++;
                 if (line == "##") { break; }
-                if (index == 9)		break;
+                if (index == 9)    break;
             }
         }
     }
     file.close();
 }
+
 
 void file_management::files_to_vectors(){
 
@@ -113,19 +114,26 @@ void file_management::file_to_users()
 {
     string userType, user_name, password_;
     ifstream read("users.txt");
-    while (getline(read, userType))
-    {
-        getline(read, user_name);
-        getline(read, password_);
-        file_management::users[file_management::users_size].usertype = userType;
-        file_management::users[file_management::users_size].username = user_name;
-        file_management::users[file_management::users_size].password = password_;
-        file_management::users_size++;
+
+    if (read.is_open()) {
+        while (getline(read, userType)) {
+            User newUser;
+            getline(read, user_name);
+            getline(read, password_);
+            newUser.usertype = userType;
+            newUser.username = user_name;
+            newUser.password = password_;
+            file_management::users.push_back(newUser);
+        }
     }
+
+    read.close();
 }
+
 void file_management::users_to_file()
 {
     ofstream read("users.txt");
-    for (int i = 0; i < file_management::users_size++; i++)
+    for (int i = 0; i < file_management::users.size(); i++) {
         read << file_management::users[i].usertype << endl << file_management::users[i].username << endl << file_management::users[i].password << endl;
+    }
 }
