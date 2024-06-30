@@ -14,6 +14,7 @@ public:
 	Text buttonText;
 	buttons(int posx, int posy, string buttonName);
 	void buttonDraw(RenderWindow& window);
+	FloatRect button_float;
 };
 
 class essentials {
@@ -25,8 +26,35 @@ public:
 class texts {
 public:
 	Text text;
-	texts(int posx, int posy, string textContent, char isTitle);
+	texts(int posx, int posy, string textContent, char isTitle, int colors[3]);
 };
 
+class colors {
+public:
+	static int title[3];
+	static int warning[3];
+	static int navbackground[3];
+	static int success[3];
+	static int icon[3];
+	static int ntexts[3];
 
+
+};
+
+class Circle {
+public:
+	CircleShape circle;
+	Text label;
+	Circle(int posx, int posy, string textContent);
+	void circleDraw(RenderWindow& window);
+};
+
+class TextField {
+public:
+	RectangleShape field;
+	Text input;
+	string data;
+	TextField(int posx, int posy);
+	void fieldDraw(RenderWindow& window);
+};
 
