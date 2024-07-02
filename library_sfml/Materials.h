@@ -10,28 +10,30 @@ using namespace sf;
 class buttons
 {
 public:
+	
+	buttons(float posx, float posy, string buttonName, bool isNav);
+	buttons(float posx, float posy, string buttonName);
+	FloatRect button_float;
 	RectangleShape button;
 	Text buttonText;
-	buttons(int posx, int posy, string buttonName, bool isNav);
 	void buttonDraw(RenderWindow& window);
 	void onHover();
 	void onUnHover();
-	FloatRect button_float;
+	void linksOnUnHover();
+	void linksOnHover();
+
 };
 
-
-
-
-class essentials {
+class fonts {
 public:
-	static Font title, normal, subtitle;
-	essentials();
+	static Font normal, title, subtitle, normal2;
+	static void initialize();
 };
 
 class texts {
 public:
 	Text text;
-	texts(int posx, int posy, string textContent, char isTitle, int colors[3]);
+	texts(float posx, float posy, string textContent, char isTitle, int colors[3]);
 };
 
 class colors {
@@ -51,7 +53,7 @@ class Circle {
 public:
 	CircleShape circle;
 	Text label;
-	Circle(int posx, int posy, string textContent);
+	Circle(float posx, float posy, string textContent);
 	void circleDraw(RenderWindow& window);
 	FloatRect CheckFloat;
 	void onCheck();
@@ -63,7 +65,7 @@ public:
 	RectangleShape field;
 	Text input;
 	string data;
-	TextField(int posx, int posy);
+	TextField(float posx, float posy);
 	void fieldDraw(RenderWindow& window);
 	FloatRect fieldFloat;
 	void onselect();
@@ -74,8 +76,12 @@ public:
 
 class photos {
 public:
-	Texture picTexture;
-	photos(string path,int posx,int posy,float scalex, float scaley);
+	photos();
+	photos(string path,float posx,float posy,float scalex, float scaley);
 	Sprite pic;
+	Texture picTexture;
+
+	
+
 };
 

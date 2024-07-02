@@ -11,12 +11,12 @@ using namespace sf;
 class welcome_page
 {
 public:
-    buttons sign_up_button, log_in_button;
-    bool visible = true;
-    texts libraryName;
+    static buttons sign_up_button, log_in_button;
+    static bool visible;
+    static texts libraryName;
     welcome_page();
-    void draw_starting_page(RenderWindow& window);
-    photos logo;
+    static void draw_starting_page(RenderWindow& window);
+    static photos logo;
 
 };
 

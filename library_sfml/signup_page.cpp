@@ -1,29 +1,25 @@
 #include "signup_page.h"
 
+buttons signup_page::signup_submit(1400, 700, "Submit", false);
+buttons signup_page::login_submit(1400, 700, "Submit", false);
+TextField signup_page::signup_field_username(500, 380);
+TextField signup_page::signup_field_password(500, 580);
+TextField signup_page::login_field_username(500, 380);
+TextField signup_page::login_field_password(500, 580);
+Circle signup_page::reader_check(700, 710, "As a reader");
+Circle signup_page::admin_check(350, 710, "As an adminstrator");
+texts signup_page::userText(350, 300, "Username", 'n', colors::ntexts);
+texts signup_page::passText(350, 500, "Password", 'n', colors::ntexts);
+texts signup_page::warning(1000, 300, "Wrong username or password, please trying again", 'w', colors::warning);
+texts signup_page::signup(260, 100, "SIGN UP", 't', colors::title);
+texts signup_page::login(260, 100, "LOG IN", 't', colors::title);
+photos signup_page::decoration("decoration.jpeg", 1212, 200, 0.5, 0.5);
+photos signup_page::decoration2("decoration2.jpeg", 1100, 200, 0.5, 0.5);
+bool signup_page::isLoginVisible = false;
+bool signup_page::isSignupVisible = false;
+bool signup_page::isWarning = false;
 
-signup_page::signup_page() :
-	signup_submit(1400, 700, "Submit",false),
-	login_submit(1400, 700, "Submit",false),
-	signup_field_username(500, 380),
-	signup_field_password(500, 580),
-	login_field_username(500, 380),
-	login_field_password(500, 580),
-	reader_check(700, 710, "As a reader"),
-	admin_check(350, 710, "As an adminstrator"),
-	userText(350, 300, "Username", 'n', colors::ntexts),
-	passText(350, 500, "Password", 'n', colors::ntexts),
-	warning(1000, 300, "Wrong username or password, please trying again", 'w', colors::warning),
-	signup(260, 100,"SIGN UP", 't', colors::title),
-	login(260, 100, "LOG IN", 't', colors::title),
-	decoration("decoration.jpeg",1212,200,0.5,0.5),
-decoration2("decoration2.jpeg",1100,200,0.5,0.5)
-{
-	isLoginVisible = false;
-	isSignupVisible = false;
-	isWarning = false;
-	
-
-}
+signup_page::signup_page() {}
 
 void signup_page::draw_signup_page(RenderWindow& window)
 {
@@ -51,11 +47,11 @@ void signup_page::draw_login_page(RenderWindow& window)
 
 }
 
-void signup_page::resetInputFlags(signup_page& signup) {
-	signup.signup_field_username.inputEntered = false;
-	signup.signup_field_password.inputEntered = false;
-	signup.login_field_username.inputEntered = false;
-	signup.login_field_password.inputEntered = false;
+void signup_page::resetInputFlags() {
+	signup_field_username.inputEntered = false;
+	signup_field_password.inputEntered = false;
+	login_field_username.inputEntered = false;
+	login_field_password.inputEntered = false;
 }
 
 bool signup_page::onSignUpSubmit(User& user, String username, String password, texts& warning)
@@ -102,7 +98,7 @@ bool signup_page::onLoginSubmit(User& user, String username, String password, te
 	bool userFound = false;
 	for (auto& u : file_management::users) {
 		if (username == u.username && password == u.password) {
-			file_management::selectedUser = &u;
+			file_management::selectedUser = u;
 			userFound = true;
 			break;
 		}

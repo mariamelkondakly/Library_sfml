@@ -12,7 +12,7 @@ int file_management::mystery_size;
 int file_management::romance_size;
 int file_management::non_fiction_size;
 int file_management::science_fiction_size;
-User* file_management::selectedUser = nullptr;
+User file_management::selectedUser;
 
 
 void file_management::vector_to_file(string selectedFile, vector<Book> selectedv)

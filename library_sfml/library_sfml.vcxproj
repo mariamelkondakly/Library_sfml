@@ -134,16 +134,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Book.cpp" />
+    <ClCompile Include="home_page.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Materials.cpp" />
     <ClCompile Include="file_management.cpp" />
     <ClCompile Include="navbar.cpp" />
     <ClCompile Include="signup_page.cpp" />
-    <ClCompile Include="source.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="welcome_page.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Book.h" />
+    <ClInclude Include="home_page.h" />
     <ClInclude Include="Materials.h" />
     <ClInclude Include="file_management.h" />
     <ClInclude Include="navbar.h" />
