@@ -7,12 +7,21 @@
 using namespace std;
 using namespace sf;
 
+
+
+class Fonts {
+public:
+	Font titles,normal,subtitles;
+	void initialize();
+};
+
 class buttons
 {
 public:
 	
 	buttons(float posx, float posy, string buttonName, bool isNav);
 	buttons(float posx, float posy, string buttonName);
+	buttons();
 	FloatRect button_float;
 	RectangleShape button;
 	Text buttonText;
@@ -24,11 +33,7 @@ public:
 
 };
 
-class fonts {
-public:
-	static Font normal, title, subtitle, normal2;
-	static void initialize();
-};
+
 
 class texts {
 public:

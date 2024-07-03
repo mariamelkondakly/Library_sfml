@@ -15,6 +15,7 @@ int file_management::science_fiction_size;
 User file_management::selectedUser;
 
 
+
 void file_management::vector_to_file(string selectedFile, vector<Book> selectedv)
 {
     ofstream file;

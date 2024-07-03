@@ -1,30 +1,31 @@
 #include "home_page.h"
-photos home_page::fantasy("fantasy.jpeg", 100, 250, 0.5, 0.5);
-photos home_page::mystery("mystery.jpeg", 100, 450, 0.5, 0.5);
-photos home_page::romance("romance.jpeg", 100, 650, 0.5, 0.5);
-photos home_page::sci_fi("sci-fi.jpeg", 100, 850, 0.5, 0.5);
-photos home_page::nonfiction("nonfiction.jpeg", 100, 1050, 0.5, 0.5);
-buttons home_page::fantasyButton(300, 250, "Fantasy");
-buttons home_page::mysteryButton(300, 450, "Mystery");
-buttons home_page::romanceButton(300, 650, "Romance");
-buttons home_page::scifiButton(300, 850, "Science Fiction");
-buttons home_page::nonficButton(300, 1050, "Non Fiction");
-texts home_page::fantasyDescription(300, 300, fdesc, 'w', colors::ntexts);
-texts home_page::mysteryDescription(300, 300, mdesc, 'w', colors::ntexts);
-texts home_page::romanceDescription(300, 300, rdesc, 'w', colors::ntexts);
-texts home_page::scifiDescription(300, 300, sdesc, 'w', colors::ntexts);
-texts home_page::nonficDescription(300, 300, ndesc, 'w', colors::ntexts);
+photos home_page::fantasy("fantasy.jpeg", 200, 300, 0.4, 0.4);
+photos home_page::mystery("mystery.jpeg", 200, 760, 0.4, 0.4);
+photos home_page::romance("romance.jpeg", 200, 1220, 0.4, 0.4);
+photos home_page::sci_fi("sci-fi.jpeg", 200, 1680, 0.4, 0.4);
+photos home_page::nonfiction("nonfiction.jpeg", 200, 2140, 0.4, 0.4);
+buttons home_page::fantasyButton(650, 300, "Fantasy");
+buttons home_page::mysteryButton(650, 760, "Mystery");
+buttons home_page::romanceButton(650, 1220, "Romance");
+buttons home_page::scifiButton(650, 1680, "Science Fiction");
+buttons home_page::nonficButton(650, 2140, "Non Fiction");
+string home_page::fdesc = "Fantasy transports readers to magical worlds with epic quests and mythical creatures.\nNotable authors include Stephanie Garber, whose intricate magic systems captivate,\nand Victoria Aveyard, renowned for his complex characters and sprawling narratives.";
+string home_page::mdesc = "Mystery enthralls with suspenseful plots and enigmatic crimes.\nModern masters like Karen MCcanus and Holly Jackson craft gripping,\npsychologically rich stories that keep readers on the edge of their seats.";
+string home_page::rdesc = "Romance delves into the complexities of love and relationships.\nContemporary authors like Emily Henry and Colleen Hoover deliver heartfelt,\nemotionally charged tales that explore the joys and challenges of romance.";
+string home_page::sdesc = "Sci-Fi envisions futuristic worlds and technological advancements.\nWriters like Taherah Mafi and Marie Lu create thought-provoking narratives\nthat push the boundaries of imagination and explore profound ethical dilemmas.";
+string home_page::ndesc = "Nonfiction educates and informs, offering real-world insights and stories.\nAuthors like Yuval Noah Harari and Michelle Obama provide compelling,\ninformative works that enlighten and inspire readers with their depth and authenticity.";
+texts home_page::fantasyDescription(730, 500, fdesc, 'w', colors::ntexts);
+texts home_page::mysteryDescription(730, 960, mdesc, 'w', colors::ntexts);
+texts home_page::romanceDescription(730, 1420, rdesc, 'w', colors::ntexts);
+texts home_page::scifiDescription(730, 1880, sdesc, 'w', colors::ntexts);
+texts home_page::nonficDescription(730, 2340, ndesc, 'w', colors::ntexts);
+texts home_page::explore(200, 120, "Explore our genres", 't', colors::title);
 bool home_page::isHomepageVisible = false;
-string home_page::fdesc = "Get transported to magical worlds with epic quests and mythical creatures.\n Notable authors include Victoria Aveyard, and Stephanie Garber.";
-string home_page::mdesc = "Mystery enthralls with suspenseful plots and enigmatic crimes. \n  Holly Jackson and Alex Michaelides psychologically rich stories that keep readers on the edge of their seats.";
-string home_page::rdesc = "Romance delves into the complexities of love and relationships.\n Contemporary authors like Nora Roberts and Colleen Hoover explore the joys and challenges of romance.";
-string home_page::sdesc = "Envision futuristic worlds and technological advancements. \n Writers like Marie Lu and Tahereh Mafi create thought - provoking narratives that push the boundaries of imagination.";
-string home_page::ndesc = "Nonfiction educates and informs, offering real - world insights and stories. \n Authors like Yuval Noah Harari and Michelle Obama provide compelling, informative works that enlighten and inspire readers.";
 
 
 
 void home_page::drawHomepage(RenderWindow& window) {
-    if (file_management::selectedUser.isAdmin) {
+    if (file_management::selectedUser.usertype=="Admin") {
         navbar::adminNavDraw(window, true);
     }
     else {
@@ -46,17 +47,7 @@ void home_page::drawHomepage(RenderWindow& window) {
         window.draw(romanceDescription.text);
         window.draw(scifiDescription.text);
         window.draw(nonficDescription.text);
-
-
-
-
-
-
-
-
-
-
-    
+        window.draw(explore.text);
 }
 
 void home_page::genreTouched(Vector2f pos) {
@@ -97,7 +88,18 @@ void home_page::genreTouched(Vector2f pos) {
             scifiButton.buttonText.setFillColor(Color(204, 85, 0));
             fantasyButton.buttonText.setFillColor(Color(204, 85, 0));
         }
+        else {
+            fantasyButton.buttonText.setFillColor(Color(204,85,0));
+            mysteryButton.buttonText.setFillColor(Color(204, 85, 0));
+            romanceButton.buttonText.setFillColor(Color(204, 85, 0));
+            scifiButton.buttonText.setFillColor(Color(204, 85, 0));
+            nonficButton.buttonText.setFillColor(Color(204, 85, 0));
+        }
         
+}
+
+void home_page::enableScrolling() {
+    Scrollable::setLowerBound(nonfiction.pic.getPosition().y + nonfiction.pic.getScale().y+500);
 }
 
 

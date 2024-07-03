@@ -139,6 +139,7 @@
     <ClCompile Include="Materials.cpp" />
     <ClCompile Include="file_management.cpp" />
     <ClCompile Include="navbar.cpp" />
+    <ClCompile Include="ScrollableView.cpp" />
     <ClCompile Include="signup_page.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="welcome_page.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Materials.h" />
     <ClInclude Include="file_management.h" />
     <ClInclude Include="navbar.h" />
+    <ClInclude Include="ScrollableView.h" />
     <ClInclude Include="signup_page.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="welcome_page.h" />

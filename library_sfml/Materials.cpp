@@ -1,10 +1,6 @@
 #include "Materials.h"
 
-Font fonts::title;
-Font fonts::normal;
-Font fonts::subtitle;
-Font fonts::normal2;
-
+Fonts fonts;
 int colors::title[3] = {204, 85, 0};
 int colors::warning[3] = { 139, 0, 0 };
 int colors::navbackground[3] = { 139, 69, 19 };
@@ -13,49 +9,47 @@ int colors::icon[3] = { 183, 65, 14 };
 int colors::ntexts[3] = { 149, 69, 53 };
 int colors::background[3] = { 245, 245, 220 };
 
-
 buttons::buttons(float posx,float posy, string buttonName,bool isNav) {
-    fonts::initialize();
 
+    fonts.initialize();
     if (!isNav) {
         button.setSize(Vector2f(200, 80));
         button.setFillColor(Color(210, 105, 30, 128));
         button.setOutlineThickness(3);
         button.setOutlineColor(Color(210, 105, 30, 128));
-        button.setPosition(posx, posy);
-
-        buttonText.setFont(fonts::normal);
-        buttonText.setString(buttonName);
         buttonText.setPosition(posx + 50, posy + 20);
         buttonText.setFillColor(Color(245, 245, 220));
         
     }
     else {
         button.setSize(Vector2f(100, 60));
-        button.setFillColor(Color(210, 105, 30, 128));
-        button.setPosition(posx, posy);
-
-        buttonText.setFont(fonts::normal);
+        button.setFillColor(Color(245, 245, 220));
         buttonText.setLetterSpacing(1.25);
-        buttonText.setString(buttonName);
         buttonText.setPosition(posx + 20, posy + 10);
-        buttonText.setFillColor(Color(245, 245, 220));
+        buttonText.setFillColor(Color(210, 105, 30, 128));
     }
+    buttonText.setString(buttonName);
+    buttonText.setFont(fonts.normal);
+    button.setPosition(posx, posy);
     button_float = button.getGlobalBounds();
 }
 
 //button creation for links
 buttons::buttons(float posx, float posy, string buttonName) {
-    fonts::initialize();
-
-    button.setSize(Vector2f(500, 120));
+    button.setSize(Vector2f(400, 120));
     button.setFillColor(Color(245, 245, 220));
     button.setPosition(posx, posy);
-
-    buttonText.setFont(fonts::title);
     buttonText.setString(buttonName);
-    buttonText.setPosition(posx + 100, posy + 60);
-    buttonText.setFillColor(Color(204, 85, 0));
+    buttonText.setPosition(posx + 80, posy + 60);
+    buttonText.setFillColor(Color(183, 65, 14));
+    buttonText.setFont(fonts.titles);
+    buttonText.setCharacterSize(70);
+    buttonText.setStyle(Text::Bold);
+
+}
+
+buttons::buttons()
+{
 }
 
 void buttons::buttonDraw(RenderWindow& window) {
@@ -74,29 +68,31 @@ void buttons::linksOnHover() {
     buttonText.setFillColor(Color(107, 142, 35));
 }
 void buttons::linksOnUnHover() {
-    buttonText.setFillColor(Color(204, 85, 0));
+    buttonText.setFillColor(Color(210, 105, 30, 128));
 }
 
 texts::texts(float posx, float posy, string textContent,char isTitle, int colors[3]) {
-    fonts::initialize();
     text.setString(textContent);
     text.setPosition(posx, posy);
     if (isTitle=='t') {
-        text.setCharacterSize(80);
-        text.setFont(fonts::title);
+        text.setCharacterSize(70);
         text.setStyle(Text::Bold);
+        text.setFont(fonts.titles);
     }
     else if(isTitle=='n'){
         text.setCharacterSize(40);
-        text.setFont(fonts::normal);
+        text.setFont(fonts.normal);
+
     }
     else if (isTitle == 'w') {
         text.setCharacterSize(25);
-        text.setFont(fonts::normal);
+        text.setFont(fonts.normal);
+
     }
     else if (isTitle == 's') {
         text.setCharacterSize(60);
-        text.setFont(fonts::subtitle);
+        text.setFont(fonts.subtitles);
+
     }
     text.setFillColor(sf::Color(static_cast<sf::Uint8>(colors[0]),
         static_cast<sf::Uint8>(colors[1]),
@@ -105,13 +101,6 @@ texts::texts(float posx, float posy, string textContent,char isTitle, int colors
 }
 
 
-void fonts::initialize() {
-    //fonts::normal.loadFromFile("BritishGreen.otf");
-    //fonts::title.loadFromFile("Callite.otf");
-    //fonts::subtitle.loadFromFile("Carmitta.tff");
-    
-}
-
 Circle::Circle(float posx, float posy, string textContent) {
     circle.setRadius(11);
     circle.setFillColor(Color(210, 105, 30, 128));
@@ -119,8 +108,8 @@ Circle::Circle(float posx, float posy, string textContent) {
     circle.setOutlineThickness(3);
     circle.setOutlineColor(Color(210, 105, 30, 128));
 
-    label.setFont(fonts::normal);
     label.setString(textContent);
+    label.setFont(fonts.normal);
     label.setPosition(posx+50, posy-10);
     label.setCharacterSize(30);
     label.setFillColor(Color(149, 69, 53));
@@ -148,8 +137,8 @@ TextField::TextField(float posx, float posy) {
     field.setOutlineColor(Color(210, 105, 30));
     field.setOutlineThickness(-0.5);
 
-    input.setFont(fonts::normal);
     input.setCharacterSize(30);
+    input.setFont(fonts.normal);
     input.setFillColor(sf::Color(245, 245, 220));
     input.setPosition(posx, posy-3);
     fieldFloat = field.getGlobalBounds();
@@ -210,3 +199,11 @@ photos::photos(string path, float posx, float posy,float scalex, float scaley) {
     pic.setScale(scalex, scaley);
 }
 photos::photos() : picTexture(), pic() {} // Default constructor definition
+
+void Fonts::initialize()
+{
+    fonts.titles.loadFromFile("Claire Palmer Script.otf");
+    fonts.normal.loadFromFile("BritishGreen.otf");
+    fonts.subtitles.loadFromFile("Callite.otf");
+
+}

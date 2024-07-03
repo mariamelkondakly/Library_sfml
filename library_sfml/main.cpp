@@ -5,12 +5,12 @@
 #include "navbar.h"
 #include "home_page.h"
 #include "pages.h"
+#include "ScrollableView.h"
 
 int main() {
     file_management::file_to_sizes();
     file_management::files_to_vectors();
     file_management::file_to_users();
-
 
     RenderWindow window(VideoMode(1800, 900), "Library", Style::Default);
 
@@ -18,6 +18,8 @@ int main() {
     welcome_page start_page;
     User newuser;
 
+    float upperBound = 0.0f; // Set the upper bound
+    Scrollable::init(&window, upperBound);
 
 
 
@@ -29,6 +31,9 @@ int main() {
             Vector2f StartingmousePosition = window.mapPixelToCoords(Vector2i(event.mouseButton.x, event.mouseButton.y));
             Vector2f MovingmousePosition = window.mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y));
 
+            if (!welcome_page::visible && !signup_page::isLoginVisible && !signup_page::isSignupVisible) {
+                home_page::enableScrolling();
+            }
 
             switch (event.type) {
             case Event::Closed:
@@ -148,7 +153,7 @@ int main() {
 
 
             }
-
+            Scrollable::handleScroll(event);
 
         }
 
