@@ -40,29 +40,15 @@ int main() {
                 window.close();       break;
 
             case Event::MouseMoved:
-                if (start_page.log_in_button.button.getGlobalBounds().contains(MovingmousePosition)) {
-                    start_page.log_in_button.onHover();
-                    start_page.sign_up_button.onUnHover();
+                if (start_page.visible) {
+                    start_page.onWelcomeHover(MovingmousePosition, start_page);
                 }
-                else if (start_page.sign_up_button.button.getGlobalBounds().contains(MovingmousePosition)) {
-                    start_page.sign_up_button.onHover();
-                    start_page.log_in_button.onUnHover();
-                }
-                else if (signup_page::isLoginVisible && signup_page::login_submit.button.getGlobalBounds().contains(MovingmousePosition)) {
-                    signup_page::login_submit.onHover();
-                }
-                else if (signup_page::isSignupVisible && signup_page::signup_submit.button.getGlobalBounds().contains(MovingmousePosition)) {
-                    signup_page::signup_submit.onHover();
+                else if (signup_page::isLoginVisible || signup_page::isSignupVisible) {
+                    signup_page::onSignupHover(MovingmousePosition);
                 }
                 else if (home_page::isHomepageVisible) {
                     home_page::genreTouched(MovingmousePosition);
-                }
-                else {
-                    start_page.sign_up_button.onUnHover();
-                    start_page.log_in_button.onUnHover();
-                    signup_page::login_submit.onUnHover();
-                    signup_page::signup_submit.onUnHover();
-
+                    navbar::onNavHover(MovingmousePosition);
                 }
                 break;
 
@@ -71,72 +57,18 @@ int main() {
 
                 if (event.mouseButton.button == Mouse::Left) {
 
-                    if (start_page.log_in_button.button_float.contains(StartingmousePosition) && start_page.visible) {
-                        start_page.visible = false;
-                        signup_page::isLoginVisible = true;
+                    if (start_page.visible) {
+                        start_page.WelcomeButtonsClicked(StartingmousePosition, start_page);
                     }
-                    else if (start_page.sign_up_button.button_float.contains(StartingmousePosition) && start_page.visible) {
-                        start_page.visible = false;
-                        signup_page::isSignupVisible = true;
+                    else if (signup_page::isLoginVisible || signup_page::isSignupVisible) {
+                        signup_page::onButtonsClicked(StartingmousePosition, newuser);
                     }
-
-                    else if (signup_page::isSignupVisible && signup_page::admin_check.CheckFloat.contains(StartingmousePosition)) {
-                        newuser.isAdmin = true;
-                        signup_page::admin_check.onCheck();
-                        signup_page::reader_check.onUncheck();
-                    }
-                    else if (signup_page::isSignupVisible && signup_page::reader_check.CheckFloat.contains(StartingmousePosition)) {
-                        newuser.isAdmin = false;
-                        signup_page::reader_check.onCheck();
-                        signup_page::admin_check.onUncheck();
-                    }
-                    else if (signup_page::isSignupVisible && signup_page::signup_field_username.fieldFloat.contains(StartingmousePosition)) {
-                        signup_page::signup_field_username.inputEntered = true;
-                        signup_page::signup_field_username.onselect();
-                        signup_page::signup_field_password.inputEntered = false;
-                        signup_page::signup_field_password.onunselect();
-                    }
-                    else if (signup_page::isSignupVisible && signup_page::signup_field_password.fieldFloat.contains(StartingmousePosition)) {
-                        signup_page::signup_field_username.inputEntered = false;
-                        signup_page::signup_field_username.onunselect();
-                        signup_page::signup_field_password.inputEntered = true;
-                        signup_page::signup_field_password.onselect();
-                    }
-                    else if (signup_page::isLoginVisible && signup_page::login_field_username.fieldFloat.contains(StartingmousePosition)) {
-                        signup_page::login_field_username.inputEntered = true;
-                        signup_page::login_field_username.onselect();
-                        signup_page::login_field_password.inputEntered = false;
-                        signup_page::login_field_password.onunselect();
-                    }
-                    else if (signup_page::isLoginVisible && signup_page::login_field_password.fieldFloat.contains(StartingmousePosition)) {
-                        signup_page::login_field_username.inputEntered = false;
-                        signup_page::login_field_username.onunselect();
-                        signup_page::login_field_password.inputEntered = true;
-                        signup_page::login_field_password.onselect();
-                    }
-                    else if (signup_page::isSignupVisible && signup_page::signup_submit.button_float.contains(StartingmousePosition)) {
-                        if (signup_page::onSignUpSubmit(newuser, signup_page::signup_field_username.data, signup_page::signup_field_password.data, signup_page::warning)) {
-                            signup_page::isSignupVisible = false;
-                            signup_page::isLoginVisible = true;
-                            signup_page::resetInputFlags();
-                            signup_page::isWarning = false;
-
-                        }
-                        else {
-                            signup_page::isWarning = true;
-                        }
-                    }
-                    else if (signup_page::isLoginVisible && signup_page::login_submit.button_float.contains(StartingmousePosition)) {
-                        if (signup_page::onLoginSubmit(newuser, signup_page::login_field_username.data, signup_page::login_field_password.data, signup_page::warning)) {
-                            signup_page::isLoginVisible = false;
-                            signup_page::isWarning = false;
-                            home_page::isHomepageVisible = true;
-                        }
-                        else {
-                            signup_page::isWarning = true;
-                        }
+                    else if (home_page::isHomepageVisible) {
+                        navbar::onNavClicked(StartingmousePosition, home_page::isHomepageVisible);
                     }
                 }
+                break;
+
             case Event::TextEntered:
                 if (signup_page::signup_field_username.inputEntered) {
                     TextField::inputHandelling(event, false, signup_page::signup_field_username);
@@ -151,7 +83,7 @@ int main() {
                     TextField::inputHandelling(event, true, signup_page::login_field_password);
                 }
 
-
+                break;
             }
             Scrollable::handleScroll(event);
 

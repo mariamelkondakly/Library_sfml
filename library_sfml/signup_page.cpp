@@ -84,6 +84,18 @@ bool signup_page::onSignUpSubmit(User& user, String username, String password, t
 		file_management::users.push_back(user);
 		
 	}
+	user.username = "";
+	user.password = "";
+	user.usertype = "";
+	user.isAdmin = false;
+	signup_field_username.data = "";
+	signup_field_password.data = "";
+	signup_field_username.input.setString("");
+	signup_field_password.input.setString("");
+	admin_check.onUncheck();
+	reader_check.onUncheck();
+
+
 	return true;
 }
 
@@ -108,6 +120,93 @@ bool signup_page::onLoginSubmit(User& user, String username, String password, te
 		warning.text.setString("Invalid username or password.");
 		return false;
 	}
-	return true;
+	else {
+		user.username = "";
+		user.password = "";
+		user.usertype = "";
+		user.isAdmin = false;
+		login_field_username.data = "";
+		login_field_password.data = "";
+		login_field_username.input.setString("");
+		login_field_password.input.setString("");
+
+		return true;
+	}
+}
+
+void signup_page::onSignupHover(Vector2f pos)
+{
+
+	if (signup_page::isLoginVisible && signup_page::login_submit.button.getGlobalBounds().contains(pos)) {
+		signup_page::login_submit.onHover();
+	}
+	else if (signup_page::isSignupVisible && signup_page::signup_submit.button.getGlobalBounds().contains(pos)) {
+		signup_page::signup_submit.onHover();
+	}
+	else {
+		signup_page::login_submit.onUnHover();
+		signup_page::signup_submit.onUnHover();
+
+	}
+}
+
+void signup_page::onButtonsClicked(Vector2f pos, User& newuser)
+{
+	 if (signup_page::isSignupVisible && signup_page::admin_check.CheckFloat.contains(pos)) {
+		 newuser.isAdmin = true;
+		 signup_page::admin_check.onCheck();
+		 signup_page::reader_check.onUncheck();
+		 }
+	 else if (signup_page::isSignupVisible && signup_page::reader_check.CheckFloat.contains(pos)) {
+			 newuser.isAdmin = false;
+			 signup_page::reader_check.onCheck();
+			 signup_page::admin_check.onUncheck();
+			 }
+	 else if (signup_page::isSignupVisible && signup_page::signup_field_username.fieldFloat.contains(pos)) {
+				 signup_page::signup_field_username.inputEntered = true;
+				 signup_page::signup_field_username.onselect();
+				 signup_page::signup_field_password.inputEntered = false;
+				 signup_page::signup_field_password.onunselect();
+				 }
+	 else if (signup_page::isSignupVisible && signup_page::signup_field_password.fieldFloat.contains(pos)) {
+					 signup_page::signup_field_username.inputEntered = false;
+					 signup_page::signup_field_username.onunselect();
+					 signup_page::signup_field_password.inputEntered = true;
+					 signup_page::signup_field_password.onselect();
+					 }
+	 else if (signup_page::isLoginVisible && signup_page::login_field_username.fieldFloat.contains(pos)) {
+						 signup_page::login_field_username.inputEntered = true;
+						 signup_page::login_field_username.onselect();
+						 signup_page::login_field_password.inputEntered = false;
+						 signup_page::login_field_password.onunselect();
+						 }
+	 else if (signup_page::isLoginVisible && signup_page::login_field_password.fieldFloat.contains(pos)) {
+							 signup_page::login_field_username.inputEntered = false;
+							 signup_page::login_field_username.onunselect();
+							 signup_page::login_field_password.inputEntered = true;
+							 signup_page::login_field_password.onselect();
+							 }
+	 else if (signup_page::isSignupVisible && signup_page::signup_submit.button_float.contains(pos)) {
+								 if (signup_page::onSignUpSubmit(newuser, signup_page::signup_field_username.data, signup_page::signup_field_password.data, signup_page::warning)) {
+									 signup_page::isSignupVisible = false;
+									 signup_page::isLoginVisible = true;
+									 signup_page::resetInputFlags();
+									 signup_page::isWarning = false;
+
+								 }
+								 else {
+									 signup_page::isWarning = true;
+								 }
+								 }
+	 else if (signup_page::isLoginVisible && signup_page::login_submit.button_float.contains(pos)) {
+									 if (signup_page::onLoginSubmit(newuser, signup_page::login_field_username.data, signup_page::login_field_password.data, signup_page::warning)) {
+										 signup_page::isLoginVisible = false;
+										 signup_page::isWarning = false;
+										 home_page::isHomepageVisible = true;
+									 }
+									 else {
+										 signup_page::isWarning = true;
+									 }
+									 }
 }
 

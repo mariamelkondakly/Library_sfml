@@ -6,6 +6,7 @@
 #include "Materials.h"
 #include "User.h"
 #include "file_management.h"
+#include "home_page.h"
 
 using namespace std;
 using namespace sf;
@@ -26,7 +27,8 @@ public:
     static void resetInputFlags();
     static bool onSignUpSubmit(User& user, String username, String password, texts& warning);
     static bool onLoginSubmit(User& user, String username, String password, texts& warning);
-
+    static void onSignupHover(Vector2f pos);
+    static void onButtonsClicked(Vector2f, User& newuser);
     static bool isSignupVisible;
     static bool isLoginVisible;
     static bool isWarning;

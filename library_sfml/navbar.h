@@ -5,7 +5,7 @@
 #include <iostream>
 #include "file_management.h"
 #include "Materials.h"
-
+#include"welcome_page.h"
 class navbar
 {
 public:
@@ -23,5 +23,8 @@ public:
 	static void initialize();
 	static void readerNavDraw(RenderWindow& window, bool isHome);
 	static void adminNavDraw(RenderWindow& window, bool isHome);
+	static void onNavHover(Vector2f pos);
+	static void onNavClicked(Vector2f pos, bool& sourcePage);
+	
 };
 

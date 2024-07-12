@@ -45,6 +45,9 @@
     <ClCompile Include="ScrollableView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Cart_page.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_management.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ScrollableView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cart_page.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,6 +4,8 @@
 #include <SFML/System.hpp>
 #include <iostream>
 #include "Materials.h"
+#include "signup_page.h"
+#include "welcome_page.h"
 
 using namespace std;
 using namespace sf;
@@ -17,6 +19,8 @@ public:
     welcome_page();
     static void draw_starting_page(RenderWindow& window);
     static photos logo;
+    static void onWelcomeHover(Vector2f pos, welcome_page& welcome);
+    static void WelcomeButtonsClicked(Vector2f pos, welcome_page& welcome);
 
 };
 

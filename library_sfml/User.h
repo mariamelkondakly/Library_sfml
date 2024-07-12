@@ -10,7 +10,9 @@ public:
     string usertype;
     string username;
     string password;
+    float totalPrice;
     bool isAdmin;
-    vector <pair<int, int>>cart_vector;
+    vector <pair<string, int>>cart_vector;
+    float calculateTotalPrice();
 };
 

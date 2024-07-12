@@ -15,3 +15,31 @@ void welcome_page::draw_starting_page(RenderWindow& window) {
  welcome_page::log_in_button.buttonDraw(window);
  window.draw(welcome_page::logo.pic);
 }
+
+void welcome_page::WelcomeButtonsClicked(Vector2f pos, welcome_page& welcome)
+{
+	if (welcome.log_in_button.button_float.contains(pos)) {
+		welcome.visible = false;
+		signup_page::isLoginVisible = true;
+	}
+	else if (welcome.sign_up_button.button_float.contains(pos)) {
+		welcome.visible = false;
+		signup_page::isSignupVisible = true;
+	}
+}
+
+void welcome_page::onWelcomeHover(Vector2f pos, welcome_page& welcome)
+{
+	if (welcome.log_in_button.button.getGlobalBounds().contains(pos)) {
+		welcome.log_in_button.onHover();
+		welcome.sign_up_button.onUnHover();
+	}
+	else if (welcome.sign_up_button.button.getGlobalBounds().contains(pos)) {
+		welcome.sign_up_button.onHover();
+		welcome.log_in_button.onUnHover();
+	}
+	else {
+		welcome.sign_up_button.onUnHover();
+		welcome.log_in_button.onUnHover();
+	}
+}

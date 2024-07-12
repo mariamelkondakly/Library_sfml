@@ -52,3 +52,81 @@ void navbar::adminNavDraw(RenderWindow& window, bool isHome)
 	orders.buttonDraw(window);
 
 }
+
+void navbar::onNavHover(Vector2f pos)
+{
+	if (logout.button.getGlobalBounds().contains(pos)) {
+		logout.buttonText.setFillColor(Color(210, 105, 30));
+		home.buttonText.setFillColor(Color(210, 105, 30, 128));
+		if (file_management::selectedUser.usertype=="Admin") {
+			orders.buttonText.setFillColor(Color(210, 105, 30, 128));
+		}
+		else {
+			cart.buttonText.setFillColor(Color(210, 105, 30, 128));
+			history.buttonText.setFillColor(Color(210, 105, 30, 128));
+		}
+
+	}
+	else if (home.button.getGlobalBounds().contains(pos)) {
+		logout.buttonText.setFillColor(Color(210, 105, 30, 128));
+		home.buttonText.setFillColor(Color(210, 105, 30));
+		if (file_management::selectedUser.usertype=="Admin") {
+			orders.buttonText.setFillColor(Color(210, 105, 30, 128));
+		}
+		else {
+			cart.buttonText.setFillColor(Color(210, 105, 30, 128));
+			history.buttonText.setFillColor(Color(210, 105, 30, 128));
+		}
+
+	}
+	else if (file_management::selectedUser.usertype=="Admin" && orders.button.getGlobalBounds().contains(pos)) {
+		logout.buttonText.setFillColor(Color(210, 105, 30, 128));
+		orders.buttonText.setFillColor(Color(210, 105, 30));
+		home.buttonText.setFillColor(Color(210, 105, 30,128));  
+	}
+	else if(file_management::selectedUser.usertype=="Reader") {
+		
+		if (cart.button.getGlobalBounds().contains(pos)) {
+			logout.buttonText.setFillColor(Color(210, 105, 30, 128));
+			cart.buttonText.setFillColor(Color(210, 105, 30));
+			home.buttonText.setFillColor(Color(210, 105, 30, 128));
+			history.buttonText.setFillColor(Color(210, 105, 30, 128));
+		}
+		else if (history.button.getGlobalBounds().contains(pos)) {
+			logout.buttonText.setFillColor(Color(210, 105, 30, 128));
+			cart.buttonText.setFillColor(Color(210, 105, 30,128));
+			home.buttonText.setFillColor(Color(210, 105, 30, 128));
+			history.buttonText.setFillColor(Color(210, 105, 30));
+		}
+		
+
+	}
+	else {
+		home.buttonText.setFillColor(Color(210, 105, 30, 128));
+		logout.buttonText.setFillColor(Color(210, 105, 30, 128));
+		if (file_management::selectedUser.usertype=="Admin") {
+			orders.buttonText.setFillColor(Color(210, 105, 30, 128));
+		}
+		else {
+			cart.buttonText.setFillColor(Color(210, 105, 30, 128));
+			history.buttonText.setFillColor(Color(210, 105, 30, 128));
+		}
+
+	}
+}
+
+void navbar::onNavClicked(Vector2f pos, bool& sourcePage)
+{
+	if (logout.button.getGlobalBounds().contains(pos)) {
+		sourcePage = false;
+		welcome_page::visible = true;
+	}
+	else if (home.button.getGlobalBounds().contains(pos)) {
+		sourcePage = false;
+		home_page::isHomepageVisible = true;
+	}
+	
+	
+}
+
+
