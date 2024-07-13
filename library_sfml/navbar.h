@@ -6,6 +6,7 @@
 #include "file_management.h"
 #include "Materials.h"
 #include"welcome_page.h"
+#include "Cart_page.h"
 class navbar
 {
 public:
@@ -20,6 +21,7 @@ public:
 	static photos nav;
 	static photos nav2;
 	static string welcomenote;
+	static bool isNavVisible;
 	static void initialize();
 	static void readerNavDraw(RenderWindow& window, bool isHome);
 	static void adminNavDraw(RenderWindow& window, bool isHome);

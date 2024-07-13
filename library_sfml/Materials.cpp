@@ -71,6 +71,8 @@ void buttons::linksOnUnHover() {
     buttonText.setFillColor(Color(210, 105, 30, 128));
 }
 
+texts::texts(){}
+
 texts::texts(float posx, float posy, string textContent,char isTitle, int colors[3]) {
     text.setString(textContent);
     text.setPosition(posx, posy);

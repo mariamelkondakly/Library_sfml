@@ -39,6 +39,7 @@ class texts {
 public:
 	Text text;
 	texts(float posx, float posy, string textContent, char isTitle, int colors[3]);
+	texts();
 };
 
 class colors {

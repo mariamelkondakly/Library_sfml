@@ -15,3 +15,14 @@ Book::Book(string _title, string _author, string _description, string _type, str
 // Default constructor
 Book::Book() {
 }
+
+readersbooks::readersbooks()
+{
+}
+
+readersbooks::readersbooks(string name, string cost, string q)
+{
+	title = name;
+	price = cost;
+	quantity = q;
+}

@@ -6,8 +6,10 @@
 #include "home_page.h"
 #include "pages.h"
 #include "ScrollableView.h"
-
+#include "Cart_page.h"
+using namespace std;
 int main() {
+
     file_management::file_to_sizes();
     file_management::files_to_vectors();
     file_management::file_to_users();
@@ -22,17 +24,25 @@ int main() {
     Scrollable::init(&window, upperBound);
 
 
-
     // Start the game loop
     while (window.isOpen()) {
+
         // Process events
         Event event;
         while (window.pollEvent(event)) {
             Vector2f StartingmousePosition = window.mapPixelToCoords(Vector2i(event.mouseButton.x, event.mouseButton.y));
             Vector2f MovingmousePosition = window.mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y));
 
-            if (!welcome_page::visible && !signup_page::isLoginVisible && !signup_page::isSignupVisible) {
+            if (home_page::isHomepageVisible) {
                 home_page::enableScrolling();
+            }
+            else if (Cart_page::isCartVisible) {
+                Cart_page::enableScrolling();
+            }
+
+
+            if (!welcome_page::visible && !signup_page::isLoginVisible && !signup_page::isSignupVisible) {
+                navbar::isNavVisible = true;
             }
 
             switch (event.type) {
@@ -47,7 +57,12 @@ int main() {
                     signup_page::onSignupHover(MovingmousePosition);
                 }
                 else if (home_page::isHomepageVisible) {
-                    home_page::genreTouched(MovingmousePosition);
+                    navbar::onNavHover(MovingmousePosition);
+                }
+                else if (Cart_page::isCartVisible) {
+                    Cart_page::oncheckoutHover(MovingmousePosition);
+                }
+                if (navbar::isNavVisible) {
                     navbar::onNavHover(MovingmousePosition);
                 }
                 break;
@@ -65,6 +80,9 @@ int main() {
                     }
                     else if (home_page::isHomepageVisible) {
                         navbar::onNavClicked(StartingmousePosition, home_page::isHomepageVisible);
+                    }
+                    else if (Cart_page::isCartVisible) {
+                        navbar::onNavClicked(StartingmousePosition, Cart_page::isCartVisible);
                     }
                 }
                 break;
@@ -107,9 +125,13 @@ int main() {
         else if (home_page::isHomepageVisible) {
             home_page::drawHomepage(window);
         }
+        else if (Cart_page::isCartVisible) {
+            Cart_page::drawCart(window);
+        }
         if (signup_page::isWarning) {
             window.draw(signup_page::warning.text);
         }
+
 
         window.display();
     }

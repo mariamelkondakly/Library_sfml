@@ -2,6 +2,7 @@
 #include<iostream>
 #include<vector>
 #include <utility>
+#include "Book.h"
 using namespace std;
 
 class User
@@ -12,7 +13,7 @@ public:
     string password;
     float totalPrice;
     bool isAdmin;
-    vector <pair<string, int>>cart_vector;
+    vector <readersbooks>cart_vector;
     float calculateTotalPrice();
 };
 

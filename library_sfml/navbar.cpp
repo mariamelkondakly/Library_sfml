@@ -1,13 +1,14 @@
 #include "navbar.h"
 buttons navbar::logout(1600, 10, "Logout", true);
 buttons navbar::history(1480, 10, "History", true);
-buttons navbar::cart(1260, 10, "Cart", true);
+buttons navbar::cart(1380, 10, "Cart", true);
 buttons navbar::home;
 buttons navbar::orders(1480, 10, "Orders", true);
 photos navbar::nav("welcome_navbar.jpeg", 500, -5, 0.75, 0.75);
 photos navbar::nav2("navbar2.jpeg", 650, -5, 0.5, 0.5);
 string navbar::welcomenote = "WELCOME BACK";
 texts navbar::welcome(780, 30, welcomenote, 'w', colors::ntexts);
+bool navbar::isNavVisible = false;
 RectangleShape navbar::navrec;
 
 void navbar::initialize() {
@@ -19,7 +20,7 @@ void navbar::initialize() {
 void navbar::readerNavDraw(RenderWindow& window, bool isHome)
 {
 	initialize();
-	home=buttons(1040, 10, "Home", true);
+	home=buttons(1280, 10, "Home", true);
 	window.draw(navrec);
 	logout.buttonDraw(window);
 	home.buttonDraw(window);
@@ -84,22 +85,18 @@ void navbar::onNavHover(Vector2f pos)
 		orders.buttonText.setFillColor(Color(210, 105, 30));
 		home.buttonText.setFillColor(Color(210, 105, 30,128));  
 	}
-	else if(file_management::selectedUser.usertype=="Reader") {
-		
-		if (cart.button.getGlobalBounds().contains(pos)) {
-			logout.buttonText.setFillColor(Color(210, 105, 30, 128));
-			cart.buttonText.setFillColor(Color(210, 105, 30));
-			home.buttonText.setFillColor(Color(210, 105, 30, 128));
-			history.buttonText.setFillColor(Color(210, 105, 30, 128));
-		}
-		else if (history.button.getGlobalBounds().contains(pos)) {
-			logout.buttonText.setFillColor(Color(210, 105, 30, 128));
-			cart.buttonText.setFillColor(Color(210, 105, 30,128));
-			home.buttonText.setFillColor(Color(210, 105, 30, 128));
-			history.buttonText.setFillColor(Color(210, 105, 30));
-		}
-		
+	else if (file_management::selectedUser.usertype == "Reader" && cart.button.getGlobalBounds().contains(pos)) {
 
+		logout.buttonText.setFillColor(Color(210, 105, 30, 128));
+		cart.buttonText.setFillColor(Color(210, 105, 30));
+		home.buttonText.setFillColor(Color(210, 105, 30, 128));
+		history.buttonText.setFillColor(Color(210, 105, 30, 128));
+	}
+	else if (file_management::selectedUser.usertype == "Reader" && history.button.getGlobalBounds().contains(pos)) {
+		logout.buttonText.setFillColor(Color(210, 105, 30, 128));
+		cart.buttonText.setFillColor(Color(210, 105, 30, 128));
+		home.buttonText.setFillColor(Color(210, 105, 30, 128));
+		history.buttonText.setFillColor(Color(210, 105, 30));
 	}
 	else {
 		home.buttonText.setFillColor(Color(210, 105, 30, 128));
@@ -125,7 +122,10 @@ void navbar::onNavClicked(Vector2f pos, bool& sourcePage)
 		sourcePage = false;
 		home_page::isHomepageVisible = true;
 	}
-	
+	else if (cart.button.getGlobalBounds().contains(pos)) {
+		sourcePage = false;
+		Cart_page::isCartVisible=true;
+	}
 	
 }
 

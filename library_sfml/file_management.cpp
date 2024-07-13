@@ -1,4 +1,7 @@
 #include "file_management.h"
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 vector<Book> file_management::fantasy;
 vector<Book> file_management::mystery;
@@ -14,71 +17,69 @@ int file_management::non_fiction_size;
 int file_management::science_fiction_size;
 User file_management::selectedUser;
 
+void file_management::vector_to_file(string selectedFile, vector<Book> selectedv) {
+    ofstream file(selectedFile);
+    if (!file.is_open()) {
+        cout << "Error opening file for writing: " << selectedFile << endl;
+        return;
+    }
 
-
-void file_management::vector_to_file(string selectedFile, vector<Book> selectedv)
-{
-    ofstream file;
-    file.open(selectedFile);
-
-    for (int i = 0; i < selectedv.size(); i++)
-    {
-        file << selectedv[i].title << endl;
-        file << selectedv[i].author << endl;
-        file << selectedv[i].description << endl;
-        file << selectedv[i].type << endl;
-        file << selectedv[i].status << endl;
-        file << selectedv[i].price << endl;
-        file << selectedv[i].numofpages << endl;
-        file << selectedv[i].review << endl;
-        file << selectedv[i].quantity << endl;
+    for (const auto& book : selectedv) {
+        file << book.title << endl;
+        file << book.author << endl;
+        file << book.description << endl;
+        file << book.type << endl;
+        file << book.status << endl;
+        file << book.price << endl;
+        file << book.numofpages << endl;
+        file << book.review << endl;
+        file << book.quantity << endl;
     }
     file << "##";
     file.close();
+    cout << "Finished writing to file: " << selectedFile << endl;
 }
 
-void file_management::file_to_vector(string selectedFile, vector<Book>& selectedv, int size)
-{
-    string line;
-    int index;
-
+void file_management::file_to_vector(string selectedFile, vector<Book>& selectedv, int size) {
     ifstream file(selectedFile);
+    if (!file.is_open()) {
+        cout << "Error opening file for reading: " << selectedFile << endl;
+        return;
+    }
 
-    if (file.is_open()) {
-        selectedv.resize(size); // Ensure the vector is resized to the correct size
-        for (int i = 0; i < size; i++) {
-            index = 0;
-            while (getline(file, line)) {
-                if (index == 0)         selectedv[i].title = line;
-                else if (index == 1)    selectedv[i].author = line;
-                else if (index == 2)    selectedv[i].description = line;
-                else if (index == 3)    selectedv[i].type = line;
-                else if (index == 4)    selectedv[i].status = line;
-                else if (index == 5)    selectedv[i].price = line;
-                else if (index == 6)    selectedv[i].numofpages = line;
-                else if (index == 7)    selectedv[i].review = line;
-                else if (index == 8)    selectedv[i].quantity = line;
-                index++;
-                if (line == "##") { break; }
-                if (index == 9)    break;
-            }
-        }
+    selectedv.clear(); // Clear the vector before populating
+    selectedv.reserve(size); // Reserve space to avoid reallocations
+
+    string line;
+    while (getline(file, line)) {
+        if (line == "##") break;
+
+        Book book;
+        book.title = line;
+        getline(file, book.author);
+        getline(file, book.description);
+        getline(file, book.type);
+        getline(file, book.status);
+        getline(file, book.price);
+        getline(file, book.numofpages);
+        getline(file, book.review);
+        getline(file, book.quantity);
+
+        selectedv.push_back(book);
     }
     file.close();
+    cout << "Finished reading from file: " << selectedFile << endl;
 }
 
-
-void file_management::files_to_vectors(){
-
-    file_management::file_to_vector("fantasy.txt",file_management::fantasy,file_management::fantasy_size);
+void file_management::files_to_vectors() {
+    file_management::file_to_vector("fantasy.txt", file_management::fantasy, file_management::fantasy_size);
     file_management::file_to_vector("romance.txt", file_management::romance, file_management::romance_size);
     file_management::file_to_vector("non_fiction.txt", file_management::non_fiction, file_management::non_fiction_size);
     file_management::file_to_vector("science_fiction.txt", file_management::science_fiction, file_management::science_fiction_size);
     file_management::file_to_vector("mystery.txt", file_management::mystery, file_management::mystery_size);
 }
 
-void file_management::vectors_to_files()
-{
+void file_management::vectors_to_files() {
     file_management::vector_to_file("fantasy.txt", file_management::fantasy);
     file_management::vector_to_file("romance.txt", file_management::romance);
     file_management::vector_to_file("non_fiction.txt", file_management::non_fiction);
@@ -88,53 +89,66 @@ void file_management::vectors_to_files()
 
 void file_management::file_to_sizes() {
     ifstream file("bookssize.txt");
-    int i = 0;
-    string line;
-    while (getline(file, line))
-    {
-        if (i == 0) { fantasy_size = stoi(line); }
-        else if (i == 1) { mystery_size = stoi(line); }
-        else if (i == 2) { romance_size = stoi(line); }
-        else if (i == 3) { non_fiction_size = stoi(line); }
-        else if (i == 4) { science_fiction_size = stoi(line); }
-        i++;
+    if (!file.is_open()) {
+        cout << "Error opening sizes file for reading" << endl;
+        return;
     }
 
+    file >> fantasy_size >> mystery_size >> romance_size >> non_fiction_size >> science_fiction_size;
     file.close();
+    cout << "Finished reading sizes" << endl;
 }
 
-void file_management::sizes_to_file()
-{
+void file_management::sizes_to_file() {
     ofstream file("bookssize.txt");
-    file << file_management::fantasy.size() << endl << file_management::mystery.size() << endl << file_management::romance.size() << endl;
-    file << file_management::non_fiction.size() << endl << file_management::science_fiction.size() << endl;
+    if (!file.is_open()) {
+        cout << "Error opening sizes file for writing" << endl;
+        return;
+    }
+
+    file << fantasy.size() << endl;
+    file << mystery.size() << endl;
+    file << romance.size() << endl;
+    file << non_fiction.size() << endl;
+    file << science_fiction.size() << endl;
     file.close();
+    cout << "Finished writing sizes" << endl;
 }
 
-void file_management::file_to_users()
-{
-    string userType, user_name, password_;
+void file_management::file_to_users() {
     ifstream read("users.txt");
-
-    if (read.is_open()) {
-        while (getline(read, userType)) {
-            User newUser;
-            getline(read, user_name);
-            getline(read, password_);
-            newUser.usertype = userType;
-            newUser.username = user_name;
-            newUser.password = password_;
-            file_management::users.push_back(newUser);
-        }
+    if (!read.is_open()) {
+        cout << "Error opening users file for reading" << endl;
+        return;
     }
 
+    users.clear();
+    string userType, user_name, password_;
+    while (getline(read, userType)) {
+        User newUser;
+        getline(read, user_name);
+        getline(read, password_);
+        newUser.usertype = userType;
+        newUser.username = user_name;
+        newUser.password = password_;
+        users.push_back(newUser);
+    }
     read.close();
+    cout << "Finished reading users" << endl;
 }
 
-void file_management::users_to_file()
-{
+void file_management::users_to_file() {
     ofstream read("users.txt");
-    for (int i = 0; i < file_management::users.size(); i++) {
-        read << file_management::users[i].usertype << endl << file_management::users[i].username << endl << file_management::users[i].password << endl;
+    if (!read.is_open()) {
+        cout << "Error opening users file for writing" << endl;
+        return;
     }
+
+    for (const auto& user : users) {
+        read << user.usertype << endl;
+        read << user.username << endl;
+        read << user.password << endl;
+    }
+    read.close();
+    cout << "Finished writing users" << endl;
 }
