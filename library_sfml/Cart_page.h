@@ -26,12 +26,13 @@ public:
 	static texts title, warning, totalprice;
 	static buttons checkout;
 	static vector<book_cart_display> items;
-	static book_cart_display selectedBook;
+	static string selectedBook;
 	static bool isCartVisible;
 	static float booksSetUp();
 	static void enableScrolling();
 	static void drawCart(RenderWindow& window);
 	static void oncheckoutHover(Vector2f pos);
+	static void buttonClickedDetection(Vector2f pos, RenderWindow& window);
 
 
 	Cart_page();

@@ -1,9 +1,9 @@
 #include "home_page.h"
-photos home_page::fantasy("fantasy.jpeg", 200, 300, 0.4, 0.4);
-photos home_page::mystery("mystery.jpeg", 200, 760, 0.4, 0.4);
-photos home_page::romance("romance.jpeg", 200, 1220, 0.4, 0.4);
-photos home_page::sci_fi("sci-fi.jpeg", 200, 1680, 0.4, 0.4);
-photos home_page::nonfiction("nonfiction.jpeg", 200, 2140, 0.4, 0.4);
+photos home_page::fantasy("assets/fantasy.jpeg", 200, 300, 0.4, 0.4);
+photos home_page::mystery("assets/mystery.jpeg", 200, 760, 0.4, 0.4);
+photos home_page::romance("assets/romance.jpeg", 200, 1220, 0.4, 0.4);
+photos home_page::sci_fi("assets/sci-fi.jpeg", 200, 1680, 0.4, 0.4);
+photos home_page::nonfiction("assets/nonfiction.jpeg", 200, 2140, 0.4, 0.4);
 buttons home_page::fantasyButton(650, 300, "Fantasy");
 buttons home_page::mysteryButton(650, 760, "Mystery");
 buttons home_page::romanceButton(650, 1220, "Romance");

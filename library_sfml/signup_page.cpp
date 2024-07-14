@@ -13,8 +13,8 @@ texts signup_page::passText(350, 500, "Password", 'n', colors::ntexts);
 texts signup_page::warning(1000, 300, "Wrong username or password, please trying again", 'w', colors::warning);
 texts signup_page::signup(260, 100, "SIGN UP", 't', colors::title);
 texts signup_page::login(260, 100, "LOG IN", 't', colors::title);
-photos signup_page::decoration("decoration.jpeg", 1212, 200, 0.5, 0.5);
-photos signup_page::decoration2("decoration2.jpeg", 1100, 200, 0.5, 0.5);
+photos signup_page::decoration("assets/decoration.jpeg", 1212, 200, 0.5, 0.5);
+photos signup_page::decoration2("assets/decoration2.jpeg", 1100, 200, 0.5, 0.5);
 bool signup_page::isLoginVisible = false;
 bool signup_page::isSignupVisible = false;
 bool signup_page::isWarning = false;
@@ -129,7 +129,10 @@ bool signup_page::onLoginSubmit(User& user, String username, String password, te
 		login_field_password.data = "";
 		login_field_username.input.setString("");
 		login_field_password.input.setString("");
-
+		readersbooks dummy = readersbooks("Serpant & Dove", "20$", "2");
+		readersbooks dummy2 = readersbooks("Ignite Me", "1000$", "50");
+		file_management::selectedUser.cart_vector.push_back(dummy);
+		file_management::selectedUser.cart_vector.push_back(dummy2);
 		return true;
 	}
 }

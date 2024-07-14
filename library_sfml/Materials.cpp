@@ -204,8 +204,8 @@ photos::photos() : picTexture(), pic() {} // Default constructor definition
 
 void Fonts::initialize()
 {
-    fonts.titles.loadFromFile("Claire Palmer Script.otf");
-    fonts.normal.loadFromFile("BritishGreen.otf");
-    fonts.subtitles.loadFromFile("Callite.otf");
+    fonts.titles.loadFromFile("fonts/Claire Palmer Script.otf");
+    fonts.normal.loadFromFile("fonts/BritishGreen.otf");
+    fonts.subtitles.loadFromFile("fonts/Callite.otf");
 
 }

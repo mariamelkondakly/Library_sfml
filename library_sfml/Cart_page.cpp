@@ -1,10 +1,11 @@
 #include "Cart_page.h"
 texts Cart_page::title(200, 100, "Happy Purchase", 't', colors::title);
-texts Cart_page::warning(200, 450, "Cart is empty, choose your favourite books to fill it", 'w', colors::warning);
+texts Cart_page::warning(200, 260, "Cart is empty, choose your favourite books to fill it", 'w', colors::warning);
 texts Cart_page::totalprice;
 std::vector<book_cart_display> Cart_page::items;
 buttons Cart_page::checkout;
 bool Cart_page::isCartVisible = false;
+string Cart_page::selectedBook="";
 
 void Cart_page::enableScrolling()
 {
@@ -13,6 +14,7 @@ void Cart_page::enableScrolling()
 
 float Cart_page::booksSetUp()
 {
+	items.clear();
 	book_cart_display book;
 	float pos = 300;
 	for (int i = 0; i < file_management::selectedUser.cart_vector.size(); i++) {
@@ -20,11 +22,6 @@ float Cart_page::booksSetUp()
 		items.push_back(book);
 		pos += 200;
 	}
-	readersbooks dummy = readersbooks("Serpant & Dove", "20$", "2");
-
-	book_cart_display dummyBook = book_cart_display(pos, dummy);
-
-	items.push_back(dummyBook);
 
 
 	return pos;
@@ -32,8 +29,9 @@ float Cart_page::booksSetUp()
 
 void Cart_page::drawCart(RenderWindow& window)
 {
+	items.clear();  
 	string prices = to_string(file_management::selectedUser.calculateTotalPrice()) + " $";
-	float pos=booksSetUp()+200;
+	float pos=booksSetUp()+50;
 	totalprice = texts(200, pos,prices, 't', colors::title);
 	checkout = buttons(600, pos, "Check out", false);
 	navbar::readerNavDraw(window, false);
@@ -76,6 +74,7 @@ void book_cart_display::booksDraw(RenderWindow& window, book_cart_display book)
 	book.deleteFromCart.buttonDraw(window);
 }
 
+
 void Cart_page::oncheckoutHover(Vector2f pos)
 {
 	if (checkout.button.getGlobalBounds().contains(pos)) {
@@ -84,4 +83,32 @@ void Cart_page::oncheckoutHover(Vector2f pos)
 	else {
 		checkout.onUnHover();
 	}
+}
+
+void Cart_page::buttonClickedDetection(Vector2f pos,RenderWindow& window)
+{
+
+	for (int i = 0; i < items.size(); i++)
+	{
+		if (items[i].showDetails.button.getGlobalBounds().contains(pos)) {
+			selectedBook = items[i].bookname.text.getString();
+			isCartVisible = false;
+			//isBookVisible = true;
+			break;
+			return;
+		}
+		else if (items[i].deleteFromCart.button.getGlobalBounds().contains(pos)) {
+			selectedBook = items[i].bookname.text.getString();
+			break;
+		}
+		
+	}
+	for (int i = 0; i < file_management::selectedUser.cart_vector.size(); i++) {
+		if (file_management::selectedUser.cart_vector[i].title == selectedBook) {
+			file_management::selectedUser.cart_vector.erase(file_management::selectedUser.cart_vector.begin() + i);
+		}
+	}
+	drawCart(window);
+	
+
 }

@@ -9,10 +9,12 @@
 #include "Cart_page.h"
 using namespace std;
 int main() {
-
     file_management::file_to_sizes();
     file_management::files_to_vectors();
     file_management::file_to_users();
+
+
+
 
     RenderWindow window(VideoMode(1800, 900), "Library", Style::Default);
 
@@ -57,7 +59,7 @@ int main() {
                     signup_page::onSignupHover(MovingmousePosition);
                 }
                 else if (home_page::isHomepageVisible) {
-                    navbar::onNavHover(MovingmousePosition);
+                    home_page::genreTouched(MovingmousePosition);
                 }
                 else if (Cart_page::isCartVisible) {
                     Cart_page::oncheckoutHover(MovingmousePosition);
@@ -83,6 +85,8 @@ int main() {
                     }
                     else if (Cart_page::isCartVisible) {
                         navbar::onNavClicked(StartingmousePosition, Cart_page::isCartVisible);
+                        Cart_page::buttonClickedDetection(StartingmousePosition,window);
+                        cout << Cart_page::selectedBook << endl;
                     }
                 }
                 break;
