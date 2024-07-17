@@ -4,46 +4,10 @@ texts Books_page::title(200, 100, "The books you experienced", 't', colors::titl
  float Books_page:: posy;
  bool Books_page::isBookspageVisible=false;
  vector<BookPreview>Books_page::BookPreviewVector;
-BookPreview::BookPreview(Book& book , string photoPath , float posx , float posy) {
-	
-	BookButton = buttons(posx, posy+50, book.title , true);
-	image = photos(photoPath,posx, posy,0.5,0.5);
 
-}
-
-BookPreview::BookPreview()
-{
-
-}
-
-void Books_page::booksSetUp( vector<Book> genre , string genreName)
-{
-	BookPreviewVector.reserve(20);
-	BookPreview book;
-	float posx;
-	string path;
-	int counter=1;
-	posy = 300;
-	for (int i = 0; i < genre.size(); i++) {
-		posx = 200;
-		for (int j = 0; j < 4 && counter <= genre.size(); j++) {
-			path = genreName + "/";
-			path += to_string(counter);
-			if (genreName == "mystery") {
-				path += ".jpg";
-			}
-			else {
-				path += ".png";
-
-			}
-			cout << "photo path = " << path<<endl;
-			book = BookPreview(genre[counter-1],path,posx,posy);
-			BookPreviewVector.push_back(book);
-			posx += 200;
-			counter++;
-		}
-		posy += 600;
-	}
+BookPreview::BookPreview(){
+	path = "";
+	bookName = "";
 }
 
 void Books_page::enableScrolling()
@@ -53,15 +17,40 @@ void Books_page::enableScrolling()
 
 void BookPreview::booksDraw(RenderWindow& window, BookPreview book)
 {
-	book.BookButton.buttonDraw(window);
-	window.draw(book.image.pic);
-	
+	window.draw(book.image.pic);	
 }
 
 void Books_page::drawBooksPage(RenderWindow& window , vector<Book> genre, string genreName)
 {
+
 	BookPreviewVector.clear();
-	booksSetUp(genre, genreName);
+	float posx;
+	int counter = 1;
+	posy = 200;
+	BookPreview book;
+	for (int i = 0; i < genre.size(); i++) {
+		posx = 200;
+		for (int j = 0; j < 4 && counter <= 2; j++) {
+			book = BookPreview();
+			book.path = genreName + "/";
+			book.path += to_string(counter);
+			if (genreName == "mystery") {
+				book.path += ".jpg";
+			}
+			else {
+				book.path += ".png";
+
+			}
+			book.image = photos(book.path, posx, posy, 0.5, 0.5);
+			book.bookName = genre[counter-1].title;
+			BookPreviewVector.push_back(book);
+			posx += 200;
+			counter++;
+		}
+		posy += 600;
+	}
+
+	window.draw(title.text);
 	if (file_management::selectedUser.usertype == "Admin") {
 		navbar::adminNavDraw(window, false);
 	}
@@ -69,7 +58,7 @@ void Books_page::drawBooksPage(RenderWindow& window , vector<Book> genre, string
 		navbar::readerNavDraw(window, false);
 	}
 	for (int i = 0; i < BookPreviewVector.size(); i++) {
+
 		BookPreview::booksDraw(window, BookPreviewVector[i]);
 	}
-	window.draw(title.text);
 }

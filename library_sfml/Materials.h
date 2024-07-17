@@ -21,6 +21,7 @@ public:
 	
 	buttons(float posx, float posy, string buttonName, bool isNav);
 	buttons(float posx, float posy, string buttonName);
+	buttons(float posx, float posy, string buttonName, int size);
 	buttons();
 	FloatRect button_float;
 	RectangleShape button;

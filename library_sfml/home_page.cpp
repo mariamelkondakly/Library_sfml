@@ -4,11 +4,11 @@ photos home_page::mystery("assets/mystery.jpeg", 200, 760, 0.4, 0.4);
 photos home_page::romance("assets/romance.jpeg", 200, 1220, 0.4, 0.4);
 photos home_page::sci_fi("assets/sci-fi.jpeg", 200, 1680, 0.4, 0.4);
 photos home_page::nonfiction("assets/nonfiction.jpeg", 200, 2140, 0.4, 0.4);
-buttons home_page::fantasyButton(650, 300, "Fantasy");
-buttons home_page::mysteryButton(650, 760, "Mystery");
-buttons home_page::romanceButton(650, 1220, "Romance");
-buttons home_page::scifiButton(650, 1680, "Science Fiction");
-buttons home_page::nonficButton(650, 2140, "Non Fiction");
+buttons home_page::fantasyButton(650, 300, "Fantasy",70);
+buttons home_page::mysteryButton(650, 760, "Mystery",70);
+buttons home_page::romanceButton(650, 1220, "Romance",70);
+buttons home_page::scifiButton(650, 1680, "Science Fiction",70);
+buttons home_page::nonficButton(650, 2140, "Non Fiction",70);
 string home_page::fdesc = "Fantasy transports readers to magical worlds with epic quests and mythical creatures.\nNotable authors include Stephanie Garber, whose intricate magic systems captivate,\nand Victoria Aveyard, renowned for his complex characters and sprawling narratives.";
 string home_page::mdesc = "Mystery enthralls with suspenseful plots and enigmatic crimes.\nModern masters like Karen MCcanus and Holly Jackson craft gripping,\npsychologically rich stories that keep readers on the edge of their seats.";
 string home_page::rdesc = "Romance delves into the complexities of love and relationships.\nContemporary authors like Emily Henry and Colleen Hoover deliver heartfelt,\nemotionally charged tales that explore the joys and challenges of romance.";
@@ -106,6 +106,30 @@ void home_page::genreTouched(Vector2f pos) {
 void home_page::enableScrolling() {
     Scrollable::setLowerBound(nonfiction.pic.getPosition().y + nonfiction.pic.getScale().y+500);
 }
+void home_page::checkingClicks()
+{
+    if (home_page::isFantasyClicked) {
+        home_page::isHomepageVisible = false;
+        Books_page::isBookspageVisible = true;
+
+    }
+    else if (home_page::isRomanceClicked) {
+        home_page::isHomepageVisible = false;
+        Books_page::isBookspageVisible = true;
+    }
+    else if (home_page::isScifiClicked) {
+        home_page::isHomepageVisible = false;
+        Books_page::isBookspageVisible = true;
+    }
+    else if (home_page::isNonfictionClicked) {
+        home_page::isHomepageVisible = false;
+        Books_page::isBookspageVisible = true;
+    }
+    else if (home_page::isMysteryClicked) {
+        home_page::isHomepageVisible = false;
+        Books_page::isBookspageVisible = true;
+    }
+}
 void home_page::genreClicked(Vector2f pos) {
 
     if (fantasyButton.button.getGlobalBounds().contains(pos)) {
@@ -143,13 +167,13 @@ void home_page::genreClicked(Vector2f pos) {
         isFantasyClicked = false;
         isScifiClicked = false;
     }
-    else {
+    /*else {
         isNonfictionClicked = false;
         isMysteryClicked = false;
         isRomanceClicked = false;
         isFantasyClicked = false;
         isScifiClicked = false;
-    }
+    }*/
 
 }
 

@@ -7,6 +7,7 @@
 #include "navbar.h"
 #include "Materials.h"
 #include "ScrollableView.h"
+#include "BookPreview.h"
 class home_page
 {
 public:
@@ -21,6 +22,7 @@ public:
 	static buttons fantasyButton, mysteryButton, romanceButton, scifiButton, nonficButton;
 	static string fdesc, mdesc, rdesc, sdesc, ndesc;
 	static void enableScrolling();
+	static void checkingClicks();
 
 	static void genreClicked(Vector2f pos);
 

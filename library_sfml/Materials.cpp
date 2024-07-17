@@ -35,7 +35,7 @@ buttons::buttons(float posx,float posy, string buttonName,bool isNav) {
 }
 
 //button creation for links
-buttons::buttons(float posx, float posy, string buttonName) {
+buttons::buttons(float posx, float posy, string buttonName, int size) {
     button.setSize(Vector2f(400, 120));
     button.setFillColor(Color(245, 245, 220));
     button.setPosition(posx, posy);
@@ -43,7 +43,7 @@ buttons::buttons(float posx, float posy, string buttonName) {
     buttonText.setPosition(posx + 80, posy + 60);
     buttonText.setFillColor(Color(183, 65, 14));
     buttonText.setFont(fonts.titles);
-    buttonText.setCharacterSize(70);
+    buttonText.setCharacterSize(size);
     buttonText.setStyle(Text::Bold);
 
 }
