@@ -9,6 +9,7 @@
 #include "ScrollableView.h"
 #include "Cart_page.h"
 #include "book_cart_display.h"
+#include "BookPreview.h"
 using namespace std;
 int main() {
     file_management::file_to_sizes();
@@ -45,6 +46,9 @@ int main() {
             }
             else if (History_page::isHistoryVisible) {
                 History_page::enableScrolling();
+            }
+            else if (Books_page::isBookspageVisible) {
+                Books_page::enableScrolling();
             }
 
 
@@ -87,6 +91,7 @@ int main() {
                     }
                     else if (home_page::isHomepageVisible) {
                         navbar::onNavClicked(StartingmousePosition, home_page::isHomepageVisible);
+                        home_page::genreClicked(StartingmousePosition);
                     }
                     else if (Cart_page::isCartVisible) {
                         navbar::onNavClicked(StartingmousePosition, Cart_page::isCartVisible);
@@ -96,6 +101,11 @@ int main() {
                     else if (History_page::isHistoryVisible) {
                         navbar::onNavClicked(StartingmousePosition, History_page::isHistoryVisible);
                         book_cart_display::buttonClickedDetection(StartingmousePosition, window);
+                    }
+                    else if (Books_page::isBookspageVisible) {
+                        navbar::onNavClicked(StartingmousePosition, Books_page::isBookspageVisible);
+
+
                     }
 
                 }
@@ -138,6 +148,33 @@ int main() {
         }
         else if (home_page::isHomepageVisible) {
             home_page::drawHomepage(window);
+            if (home_page::isFantasyClicked) {
+                home_page::isHomepageVisible = false;
+                Books_page::isBookspageVisible = true;
+                Books_page::drawBooksPage(window,file_management::fantasy , "fantasy");
+
+            }
+            if (home_page::isRomanceClicked) {
+                home_page::isHomepageVisible = false;
+                Books_page::isBookspageVisible = true;
+                Books_page::drawBooksPage(window, file_management::romance, "romance");
+            }
+            if (home_page::isScifiClicked) {
+                home_page::isHomepageVisible = false;
+                Books_page::isBookspageVisible = true;
+                Books_page::drawBooksPage(window, file_management::science_fiction, "scifi");
+            }
+            if (home_page::isNonfictionClicked) {
+                home_page::isHomepageVisible = false;
+                Books_page::isBookspageVisible = true;
+                Books_page::drawBooksPage(window, file_management::non_fiction, "nonfiction");
+            }
+            if (home_page::isMysteryClicked) {
+                home_page::isHomepageVisible = false;
+                Books_page::isBookspageVisible = true;
+                Books_page::drawBooksPage(window, file_management::mystery, "mystery");
+            }
+
         }
         else if (Cart_page::isCartVisible) {
             Cart_page::drawCart(window);

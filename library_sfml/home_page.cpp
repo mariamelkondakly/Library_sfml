@@ -21,6 +21,11 @@ texts home_page::scifiDescription(730, 1880, sdesc, 'w', colors::ntexts);
 texts home_page::nonficDescription(730, 2340, ndesc, 'w', colors::ntexts);
 texts home_page::explore(200, 120, "Explore our genres", 't', colors::title);
 bool home_page::isHomepageVisible = false;
+bool home_page::isFantasyClicked = false;
+bool home_page::isMysteryClicked = false;
+bool home_page::isScifiClicked = false;
+bool home_page::isNonfictionClicked = false;
+bool home_page::isRomanceClicked =false;
 
 
 
@@ -101,5 +106,50 @@ void home_page::genreTouched(Vector2f pos) {
 void home_page::enableScrolling() {
     Scrollable::setLowerBound(nonfiction.pic.getPosition().y + nonfiction.pic.getScale().y+500);
 }
+void home_page::genreClicked(Vector2f pos) {
 
+    if (fantasyButton.button.getGlobalBounds().contains(pos)) {
+        isFantasyClicked = true;
+        isMysteryClicked = false;
+        isRomanceClicked = false;
+        isScifiClicked = false;
+        isNonfictionClicked = false;
+    }
+    else if (mysteryButton.button.getGlobalBounds().contains(pos)) {
+        isMysteryClicked = true;
+        isFantasyClicked = false;
+        isRomanceClicked = false;
+        isScifiClicked = false;
+        isNonfictionClicked = false;
+    }
+    else if (romanceButton.button.getGlobalBounds().contains(pos)) {
+        isRomanceClicked = true;
+        isMysteryClicked = false;
+        isRomanceClicked = false;
+        isScifiClicked = false;
+        isNonfictionClicked = false;
+    }
+    else if (scifiButton.button.getGlobalBounds().contains(pos)) {
+        isScifiClicked = true;
+        isMysteryClicked = false;
+        isRomanceClicked = false;
+        isFantasyClicked = false;
+        isNonfictionClicked = false;
+    }
+    else if (nonficButton.button.getGlobalBounds().contains(pos)) {
+        isNonfictionClicked = true;
+        isMysteryClicked = false;
+        isRomanceClicked = false;
+        isFantasyClicked = false;
+        isScifiClicked = false;
+    }
+    else {
+        isNonfictionClicked = false;
+        isMysteryClicked = false;
+        isRomanceClicked = false;
+        isFantasyClicked = false;
+        isScifiClicked = false;
+    }
+
+}
 
