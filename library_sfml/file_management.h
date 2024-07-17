@@ -25,6 +25,8 @@ public:
 	static int science_fiction_size;
 
 	static User selectedUser;
+	static string selectedBook;
+
 
 	static void file_to_vector(string file, vector<Book>& selectedv,int size);
 	static void vector_to_file(string selectedFile, vector<Book> selectedv);

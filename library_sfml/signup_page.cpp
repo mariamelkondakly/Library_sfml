@@ -129,8 +129,8 @@ bool signup_page::onLoginSubmit(User& user, String username, String password, te
 		login_field_password.data = "";
 		login_field_username.input.setString("");
 		login_field_password.input.setString("");
-		readersbooks dummy = readersbooks("Serpant & Dove", "20$", "2");
-		readersbooks dummy2 = readersbooks("Ignite Me", "1000$", "50");
+		readersbooks dummy = readersbooks("Serpant & Dove", "20", "2");
+		readersbooks dummy2 = readersbooks("Ignite Me", "1000", "50");
 		file_management::selectedUser.cart_vector.push_back(dummy);
 		file_management::selectedUser.cart_vector.push_back(dummy2);
 		return true;

@@ -4,32 +4,23 @@
 #include <SFML/System.hpp>
 #include <iostream>
 #include "book_cart_display.h"
-#include <vector>
+#include <stack>
 #include<string>
 #include "Book.h"
 #include "file_management.h"
 #include "navbar.h"
 #include "Materials.h"
-#include "History_page.h"
 #include "ScrollableView.h"
-
 class book_cart_display;
-
-class Cart_page
+class History_page
 {
 public:
-	static texts title, warning, totalprice;
-	static buttons checkout;
-	static vector<book_cart_display> items;
-	static bool isCartVisible;
+	static vector<book_cart_display> boughtItems;
+	static texts title,warning;
 	static float booksSetUp();
+	static void drawHistory(RenderWindow& window);
 	static void enableScrolling();
-	static void drawCart(RenderWindow& window);
-	static void oncheckoutHover(Vector2f pos);
-	static void onCheckoutClicked(Vector2f pos);
-
-
-	Cart_page();
+	static bool isHistoryVisible;
 
 
 };

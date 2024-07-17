@@ -7,6 +7,7 @@
 #include "Materials.h"
 #include"welcome_page.h"
 #include "Cart_page.h"
+#include "History_page.h"
 class navbar
 {
 public:

@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include<vector>
+#include <stack>
 #include <utility>
 #include "Book.h"
 using namespace std;
@@ -11,9 +12,10 @@ public:
     string usertype;
     string username;
     string password;
-    float totalPrice;
+    int totalPrice;
     bool isAdmin;
     vector <readersbooks>cart_vector;
-    float calculateTotalPrice();
+    vector<readersbooks>boughtBooks;
+    void calculateTotalPrice();
 };
 

@@ -48,6 +48,12 @@
     <ClCompile Include="Cart_page.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="History_page.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="book_cart_display.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_management.h">
@@ -78,6 +84,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Cart_page.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="History_page.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="book_cart_display.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

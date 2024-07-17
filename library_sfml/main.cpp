@@ -4,9 +4,11 @@
 #include "signup_page.h"
 #include "navbar.h"
 #include "home_page.h"
+#include "History_page.h"
 #include "pages.h"
 #include "ScrollableView.h"
 #include "Cart_page.h"
+#include "book_cart_display.h"
 using namespace std;
 int main() {
     file_management::file_to_sizes();
@@ -40,6 +42,9 @@ int main() {
             }
             else if (Cart_page::isCartVisible) {
                 Cart_page::enableScrolling();
+            }
+            else if (History_page::isHistoryVisible) {
+                History_page::enableScrolling();
             }
 
 
@@ -85,9 +90,14 @@ int main() {
                     }
                     else if (Cart_page::isCartVisible) {
                         navbar::onNavClicked(StartingmousePosition, Cart_page::isCartVisible);
-                        Cart_page::buttonClickedDetection(StartingmousePosition,window);
-                        cout << Cart_page::selectedBook << endl;
+                        book_cart_display::buttonClickedDetection(StartingmousePosition,window);
+                        Cart_page::onCheckoutClicked(StartingmousePosition);
                     }
+                    else if (History_page::isHistoryVisible) {
+                        navbar::onNavClicked(StartingmousePosition, History_page::isHistoryVisible);
+                        book_cart_display::buttonClickedDetection(StartingmousePosition, window);
+                    }
+
                 }
                 break;
 
@@ -131,6 +141,9 @@ int main() {
         }
         else if (Cart_page::isCartVisible) {
             Cart_page::drawCart(window);
+        }
+        else if (History_page::isHistoryVisible) {
+            History_page::drawHistory(window);
         }
         if (signup_page::isWarning) {
             window.draw(signup_page::warning.text);

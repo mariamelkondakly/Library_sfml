@@ -2,10 +2,9 @@
 texts Cart_page::title(200, 100, "Happy Purchase", 't', colors::title);
 texts Cart_page::warning(200, 260, "Cart is empty, choose your favourite books to fill it", 'w', colors::warning);
 texts Cart_page::totalprice;
-std::vector<book_cart_display> Cart_page::items;
+vector<book_cart_display> Cart_page::items;
 buttons Cart_page::checkout;
 bool Cart_page::isCartVisible = false;
-string Cart_page::selectedBook="";
 
 void Cart_page::enableScrolling()
 {
@@ -15,6 +14,8 @@ void Cart_page::enableScrolling()
 float Cart_page::booksSetUp()
 {
 	items.clear();
+	file_management::selectedUser.totalPrice = 0;
+	file_management::selectedUser.calculateTotalPrice();
 	book_cart_display book;
 	float pos = 300;
 	for (int i = 0; i < file_management::selectedUser.cart_vector.size(); i++) {
@@ -24,14 +25,15 @@ float Cart_page::booksSetUp()
 	}
 
 
+
 	return pos;
 }
 
 void Cart_page::drawCart(RenderWindow& window)
 {
 	items.clear();  
-	string prices = to_string(file_management::selectedUser.calculateTotalPrice()) + " $";
 	float pos=booksSetUp()+50;
+	string prices = to_string(file_management::selectedUser.totalPrice) + " $";
 	totalprice = texts(200, pos,prices, 't', colors::title);
 	checkout = buttons(600, pos, "Check out", false);
 	navbar::readerNavDraw(window, false);
@@ -53,26 +55,6 @@ void Cart_page::drawCart(RenderWindow& window)
 
 Cart_page::Cart_page(){}
 
-book_cart_display::book_cart_display(float posy, readersbooks book)
-{
-	bookname = texts(200, posy, book.title, 'n', colors::ntexts);
-	cost = texts(650, posy, book.price, 'n', colors::warning);
-	showDetails = buttons(1100, posy, "Show details", true);
-	deleteFromCart = buttons(1400, posy, "Remove", true);
-	quantity = texts(900, posy, book.quantity, 'n', colors::success);
-
-}
-
-book_cart_display::book_cart_display(){}
-
-void book_cart_display::booksDraw(RenderWindow& window, book_cart_display book)
-{
-	window.draw(book.bookname.text);
-	window.draw(book.cost.text);
-	window.draw(book.quantity.text);
-	book.showDetails.buttonDraw(window);
-	book.deleteFromCart.buttonDraw(window);
-}
 
 
 void Cart_page::oncheckoutHover(Vector2f pos)
@@ -85,30 +67,16 @@ void Cart_page::oncheckoutHover(Vector2f pos)
 	}
 }
 
-void Cart_page::buttonClickedDetection(Vector2f pos,RenderWindow& window)
+void Cart_page::onCheckoutClicked(Vector2f pos)
 {
-
-	for (int i = 0; i < items.size(); i++)
-	{
-		if (items[i].showDetails.button.getGlobalBounds().contains(pos)) {
-			selectedBook = items[i].bookname.text.getString();
-			isCartVisible = false;
-			//isBookVisible = true;
-			break;
-			return;
+	if (checkout.button.getGlobalBounds().contains(pos)) {
+		for (int i = 0; i < file_management::selectedUser.cart_vector.size(); i++) {
+			file_management::selectedUser.boughtBooks.insert(file_management::selectedUser.boughtBooks.begin(),file_management::selectedUser.cart_vector[i]);
 		}
-		else if (items[i].deleteFromCart.button.getGlobalBounds().contains(pos)) {
-			selectedBook = items[i].bookname.text.getString();
-			break;
-		}
-		
+		file_management::selectedUser.cart_vector.clear();
+		isCartVisible = false;
+		History_page::isHistoryVisible = true;
 	}
-	for (int i = 0; i < file_management::selectedUser.cart_vector.size(); i++) {
-		if (file_management::selectedUser.cart_vector[i].title == selectedBook) {
-			file_management::selectedUser.cart_vector.erase(file_management::selectedUser.cart_vector.begin() + i);
-		}
-	}
-	drawCart(window);
-	
-
 }
+
+

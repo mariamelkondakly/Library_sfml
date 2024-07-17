@@ -126,6 +126,10 @@ void navbar::onNavClicked(Vector2f pos, bool& sourcePage)
 		sourcePage = false;
 		Cart_page::isCartVisible=true;
 	}
+	else if (history.button.getGlobalBounds().contains(pos)) {
+		sourcePage = false;
+		History_page::isHistoryVisible = true;
+	}
 	
 }
 
