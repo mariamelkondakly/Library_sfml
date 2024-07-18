@@ -148,25 +148,11 @@ int main() {
         }
         else if (home_page::isHomepageVisible) {
             home_page::drawHomepage(window);
-            home_page::checkingClicks();
 
         }
         else if (Books_page::isBookspageVisible) {
-            if (home_page::isFantasyClicked) {
-                Books_page::drawBooksPage(window, file_management::fantasy, "fantasy");
-            }
-            else if (home_page::isMysteryClicked) {
-                Books_page::drawBooksPage(window, file_management::mystery, "mystery");
-            }
-            else if (home_page::isNonfictionClicked) {
-                Books_page::drawBooksPage(window, file_management::non_fiction, "nonfiction");
-            }
-            else if (home_page::isScifiClicked) {
-                Books_page::drawBooksPage(window, file_management::science_fiction, "scifi");
-            }
-            else if (home_page::isRomanceClicked) {
-                Books_page::drawBooksPage(window, file_management::romance, "romance");
-            }
+            Books_page::genreSelection(window);
+
         }
         else if (Cart_page::isCartVisible) {
             Cart_page::drawCart(window);

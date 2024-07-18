@@ -21,11 +21,7 @@ texts home_page::scifiDescription(730, 1880, sdesc, 'w', colors::ntexts);
 texts home_page::nonficDescription(730, 2340, ndesc, 'w', colors::ntexts);
 texts home_page::explore(200, 120, "Explore our genres", 't', colors::title);
 bool home_page::isHomepageVisible = false;
-bool home_page::isFantasyClicked = false;
-bool home_page::isMysteryClicked = false;
-bool home_page::isScifiClicked = false;
-bool home_page::isNonfictionClicked = false;
-bool home_page::isRomanceClicked =false;
+
 
 
 
@@ -108,72 +104,56 @@ void home_page::enableScrolling() {
 }
 void home_page::checkingClicks()
 {
-    if (home_page::isFantasyClicked) {
+    if (Books_page::isFantasyClicked|| Books_page::isRomanceClicked|| Books_page::isScifiClicked|| Books_page::isNonfictionClicked|| Books_page::isMysteryClicked) {
         home_page::isHomepageVisible = false;
         Books_page::isBookspageVisible = true;
 
-    }
-    else if (home_page::isRomanceClicked) {
-        home_page::isHomepageVisible = false;
-        Books_page::isBookspageVisible = true;
-    }
-    else if (home_page::isScifiClicked) {
-        home_page::isHomepageVisible = false;
-        Books_page::isBookspageVisible = true;
-    }
-    else if (home_page::isNonfictionClicked) {
-        home_page::isHomepageVisible = false;
-        Books_page::isBookspageVisible = true;
-    }
-    else if (home_page::isMysteryClicked) {
-        home_page::isHomepageVisible = false;
-        Books_page::isBookspageVisible = true;
     }
 }
 void home_page::genreClicked(Vector2f pos) {
 
     if (fantasyButton.button.getGlobalBounds().contains(pos)) {
-        isFantasyClicked = true;
-        isMysteryClicked = false;
-        isRomanceClicked = false;
-        isScifiClicked = false;
-        isNonfictionClicked = false;
+        Books_page::isFantasyClicked = true;
+        Books_page::isMysteryClicked = false;
+        Books_page::isRomanceClicked = false;
+        Books_page::isScifiClicked = false;
+        Books_page::isNonfictionClicked = false;
     }
     else if (mysteryButton.button.getGlobalBounds().contains(pos)) {
-        isMysteryClicked = true;
-        isFantasyClicked = false;
-        isRomanceClicked = false;
-        isScifiClicked = false;
-        isNonfictionClicked = false;
+        Books_page::isMysteryClicked = true;
+        Books_page::isFantasyClicked = false;
+        Books_page::isRomanceClicked = false;
+        Books_page::isScifiClicked = false;
+        Books_page::isNonfictionClicked = false;
     }
     else if (romanceButton.button.getGlobalBounds().contains(pos)) {
-        isRomanceClicked = true;
-        isMysteryClicked = false;
-        isRomanceClicked = false;
-        isScifiClicked = false;
-        isNonfictionClicked = false;
+        Books_page::isRomanceClicked = true;
+        Books_page::isMysteryClicked = false;
+        Books_page::isRomanceClicked = false;
+        Books_page::isScifiClicked = false;
+        Books_page::isNonfictionClicked = false;
     }
     else if (scifiButton.button.getGlobalBounds().contains(pos)) {
-        isScifiClicked = true;
-        isMysteryClicked = false;
-        isRomanceClicked = false;
-        isFantasyClicked = false;
-        isNonfictionClicked = false;
+        Books_page::isScifiClicked = true;
+        Books_page::isMysteryClicked = false;
+        Books_page::isRomanceClicked = false;
+        Books_page::isFantasyClicked = false;
+        Books_page::isNonfictionClicked = false;
     }
     else if (nonficButton.button.getGlobalBounds().contains(pos)) {
-        isNonfictionClicked = true;
-        isMysteryClicked = false;
-        isRomanceClicked = false;
-        isFantasyClicked = false;
-        isScifiClicked = false;
+        Books_page::isNonfictionClicked = true;
+        Books_page::isMysteryClicked = false;
+        Books_page::isRomanceClicked = false;
+        Books_page::isFantasyClicked = false;
+        Books_page::isScifiClicked = false;
     }
-    /*else {
-        isNonfictionClicked = false;
-        isMysteryClicked = false;
-        isRomanceClicked = false;
-        isFantasyClicked = false;
-        isScifiClicked = false;
-    }*/
-
+    else {
+        Books_page::isNonfictionClicked = false;
+        Books_page::isMysteryClicked = false;
+        Books_page::isRomanceClicked = false;
+        Books_page::isFantasyClicked = false;
+        Books_page::isScifiClicked = false;
+    }
+    checkingClicks();
 }
 

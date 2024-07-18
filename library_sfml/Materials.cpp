@@ -36,7 +36,7 @@ buttons::buttons(float posx,float posy, string buttonName,bool isNav) {
 
 //button creation for links
 buttons::buttons(float posx, float posy, string buttonName, int size) {
-    button.setSize(Vector2f(400, 120));
+    button.setSize(Vector2f(700, 160));
     button.setFillColor(Color(245, 245, 220));
     button.setPosition(posx, posy);
     buttonText.setString(buttonName);
@@ -199,6 +199,7 @@ photos::photos(string path, float posx, float posy,float scalex, float scaley) {
     pic.setTexture(picTexture);
     pic.setPosition(posx, posy);
     pic.setScale(scalex, scaley);
+    std::cerr << "Image Texture Address: " << &picTexture << std::endl;
 }
 photos::photos() : picTexture(), pic() {} // Default constructor definition
 

@@ -14,6 +14,7 @@ class book_cart_display
 {
 
 public:
+
 	texts bookname, cost, quantity;
 	buttons showDetails, deleteFromCart;
 	book_cart_display(float posy, readersbooks book);
