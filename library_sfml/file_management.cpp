@@ -1,6 +1,9 @@
 #include "file_management.h"
 #include <fstream>
 #include <iostream>
+#include <algorithm>
+#include <cctype>
+#include <locale>
 using namespace std;
 
 vector<Book> file_management::fantasy;
@@ -26,11 +29,11 @@ void file_management::vector_to_file(string selectedFile, vector<Book> selectedv
         file << book.author << endl;
         file << book.description << endl;
         file << book.type << endl;
-        file << book.status << endl;
         file << book.price << endl;
         file << book.numofpages << endl;
         file << book.review << endl;
         file << book.quantity << endl;
+        file << book.path << endl;
     }
     file << "##";
     file.close();
@@ -50,11 +53,21 @@ void file_management::file_to_vector(string selectedFile, vector<Book>& selected
         getline(file, book.author);
         getline(file, book.description);
         getline(file, book.type);
-        getline(file, book.status);
         getline(file, book.price);
         getline(file, book.numofpages);
         getline(file, book.review);
         getline(file, book.quantity);
+        getline(file, book.path);
+
+        int amount = stoi(book.quantity);
+        if (book.isAvailable = (amount != 0)) {
+            book.isAvailable = true;
+            
+        }
+        else{
+            book.isAvailable = false;
+        }
+
 
         selectedv.push_back(book);
     }

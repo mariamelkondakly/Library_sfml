@@ -6,7 +6,6 @@ Book::Book(string _title, string _author, string _description, string _type, str
 		author = _author;
 		description = _description;
 		type = _type;
-		status = _status;
 		price = _price;
 		numofpages = _numofpages;
 		review = _review;
@@ -14,6 +13,7 @@ Book::Book(string _title, string _author, string _description, string _type, str
 }
 // Default constructor
 Book::Book() {
+
 }
 
 readersbooks::readersbooks()

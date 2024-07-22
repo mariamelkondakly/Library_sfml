@@ -9,6 +9,8 @@
 #include "ScrollableView.h"
 #include "Cart_page.h"
 #include "book_cart_display.h"
+#include "BookPreview.h"
+#include "BookDetails_page.h"
 using namespace std;
 int main() {
     file_management::file_to_sizes();
@@ -45,6 +47,9 @@ int main() {
             }
             else if (History_page::isHistoryVisible) {
                 History_page::enableScrolling();
+            }
+            else if (Books_page::isBookspageVisible) {
+                Books_page::enableScrolling();
             }
 
 
@@ -87,6 +92,7 @@ int main() {
                     }
                     else if (home_page::isHomepageVisible) {
                         navbar::onNavClicked(StartingmousePosition, home_page::isHomepageVisible);
+                        home_page::genreClicked(StartingmousePosition);
                     }
                     else if (Cart_page::isCartVisible) {
                         navbar::onNavClicked(StartingmousePosition, Cart_page::isCartVisible);
@@ -96,6 +102,14 @@ int main() {
                     else if (History_page::isHistoryVisible) {
                         navbar::onNavClicked(StartingmousePosition, History_page::isHistoryVisible);
                         book_cart_display::buttonClickedDetection(StartingmousePosition, window);
+                    }
+                    else if (Books_page::isBookspageVisible) {
+                        navbar::onNavClicked(StartingmousePosition, Books_page::isBookspageVisible);
+                        Books_page::BookSelected(StartingmousePosition, Books_page::selectGenre());
+
+                    }
+                    else if (BookDetails_page::isBookDetailsVisible) {
+                        navbar::onNavClicked(StartingmousePosition, BookDetails_page::isBookDetailsVisible);
                     }
 
                 }
@@ -138,12 +152,20 @@ int main() {
         }
         else if (home_page::isHomepageVisible) {
             home_page::drawHomepage(window);
+
+        }
+        else if (Books_page::isBookspageVisible) {
+            Books_page::genreSelection(window);
+
         }
         else if (Cart_page::isCartVisible) {
             Cart_page::drawCart(window);
         }
         else if (History_page::isHistoryVisible) {
             History_page::drawHistory(window);
+        }
+        else if (BookDetails_page::isBookDetailsVisible) {
+            BookDetails_page::drawBookDetailspage(window);
         }
         if (signup_page::isWarning) {
             window.draw(signup_page::warning.text);

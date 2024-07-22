@@ -134,6 +134,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Book.cpp" />
+    <ClCompile Include="BookDetails_page.cpp" />
+    <ClCompile Include="BookPreview.cpp" />
     <ClCompile Include="book_cart_display.cpp" />
     <ClCompile Include="Cart_page.cpp" />
     <ClCompile Include="History_page.cpp" />
@@ -149,6 +151,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Book.h" />
+    <ClInclude Include="BookDetails_page.h" />
+    <ClInclude Include="BookPreview.h" />
     <ClInclude Include="book_cart_display.h" />
     <ClInclude Include="Cart_page.h" />
     <ClInclude Include="History_page.h" />

@@ -35,15 +35,15 @@ buttons::buttons(float posx,float posy, string buttonName,bool isNav) {
 }
 
 //button creation for links
-buttons::buttons(float posx, float posy, string buttonName) {
-    button.setSize(Vector2f(400, 120));
+buttons::buttons(float posx, float posy, string buttonName, int size) {
+    button.setSize(Vector2f(700, 160));
     button.setFillColor(Color(245, 245, 220));
     button.setPosition(posx, posy);
     buttonText.setString(buttonName);
     buttonText.setPosition(posx + 80, posy + 60);
     buttonText.setFillColor(Color(183, 65, 14));
     buttonText.setFont(fonts.titles);
-    buttonText.setCharacterSize(70);
+    buttonText.setCharacterSize(size);
     buttonText.setStyle(Text::Bold);
 
 }
@@ -100,6 +100,33 @@ texts::texts(float posx, float posy, string textContent,char isTitle, int colors
         static_cast<sf::Uint8>(colors[1]),
         static_cast<sf::Uint8>(colors[2])));
 
+}
+string texts::wrapText(const std::string& text, float maxWidth) {
+    std::stringstream wrappedText;
+    std::stringstream lineStream;
+    std::string word;
+    float spaceWidth = fonts.normal.getGlyph(' ', 25, false).advance;
+    float lineWidth = 0.f;
+
+    std::istringstream textStream(text);
+    while (textStream >> word) {
+        float wordWidth = 0.f;
+        for (char c : word) {
+            wordWidth += fonts.normal.getGlyph(c, 25, false).advance;
+        }
+
+        if (lineWidth + wordWidth + spaceWidth > maxWidth) {
+            wrappedText << lineStream.str() << '\n';
+            lineStream.str("");
+            lineStream.clear();
+            lineWidth = 0.f;
+        }
+
+        lineStream << word << ' ';
+        lineWidth += wordWidth + spaceWidth;
+    }
+    wrappedText << lineStream.str();
+    return wrappedText.str();
 }
 
 
