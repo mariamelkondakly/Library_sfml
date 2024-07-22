@@ -129,7 +129,7 @@ void home_page::genreClicked(Vector2f pos) {
     else if (romanceButton.button.getGlobalBounds().contains(pos)) {
         Books_page::isRomanceClicked = true;
         Books_page::isMysteryClicked = false;
-        Books_page::isRomanceClicked = false;
+        Books_page::isFantasyClicked = false;
         Books_page::isScifiClicked = false;
         Books_page::isNonfictionClicked = false;
     }

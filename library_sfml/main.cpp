@@ -10,6 +10,7 @@
 #include "Cart_page.h"
 #include "book_cart_display.h"
 #include "BookPreview.h"
+#include "BookDetails_page.h"
 using namespace std;
 int main() {
     file_management::file_to_sizes();
@@ -104,8 +105,11 @@ int main() {
                     }
                     else if (Books_page::isBookspageVisible) {
                         navbar::onNavClicked(StartingmousePosition, Books_page::isBookspageVisible);
+                        Books_page::BookSelected(StartingmousePosition, Books_page::selectGenre());
 
-
+                    }
+                    else if (BookDetails_page::isBookDetailsVisible) {
+                        navbar::onNavClicked(StartingmousePosition, BookDetails_page::isBookDetailsVisible);
                     }
 
                 }
@@ -159,6 +163,9 @@ int main() {
         }
         else if (History_page::isHistoryVisible) {
             History_page::drawHistory(window);
+        }
+        else if (BookDetails_page::isBookDetailsVisible) {
+            BookDetails_page::drawBookDetailspage(window);
         }
         if (signup_page::isWarning) {
             window.draw(signup_page::warning.text);

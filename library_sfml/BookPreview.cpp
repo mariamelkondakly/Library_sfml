@@ -11,12 +11,11 @@ bool Books_page::isNonfictionClicked = false;
 bool Books_page::isRomanceClicked = false;
 
 BookPreview::BookPreview() {
-    path = "";
     bookName = "";
 }
 
-BookPreview::BookPreview(Book& book, string photoPath, float posx, float posy) :
-    image(photoPath, posx, posy, 0.5, 0.5), bookName(book.title) {
+BookPreview::BookPreview(Book& book, float posx, float posy) :
+    image(book.path, posx, posy, 0.5, 0.5), bookName(book.title) {
 }
 
 void Books_page::enableScrolling() {
@@ -27,8 +26,7 @@ void BookPreview::booksDraw(RenderWindow& window, BookPreview& book) {
     window.draw(book.image.pic);
 }
 
-void Books_page::drawBooksPage(RenderWindow& window, vector<Book> genre, string genreName) {
-    window.draw(title.text);
+void Books_page::drawBooksPage(RenderWindow& window, vector<Book> genre) {
 
     // Clear existing BookPreview pointers
     for (BookPreview* bookPreview : BookPreviewVector) {
@@ -43,15 +41,7 @@ void Books_page::drawBooksPage(RenderWindow& window, vector<Book> genre, string 
     for (int i = 0; i < 3; i++) {
         posx = 150;
         for (int j = 0; j < 4 && counter <= genre.size(); j++) {
-            string path = genreName + "/";
-            path += to_string(counter);
-            if (genreName == "mystery") {
-                path += ".jpg";
-            }
-            else {
-                path += ".png";
-            }
-            BookPreview* book = new BookPreview(genre[counter - 1], path, posx, posy);
+            BookPreview* book = new BookPreview(genre[counter - 1], posx, posy);
             BookPreviewVector.push_back(book);
 
             posx += 400;
@@ -70,24 +60,57 @@ void Books_page::drawBooksPage(RenderWindow& window, vector<Book> genre, string 
     for (BookPreview* bookPreview : BookPreviewVector) {
         BookPreview::booksDraw(window, *bookPreview);
     }
+    window.draw(title.text);
+
 }
 
 void Books_page::genreSelection(RenderWindow& window)
 {
     if (Books_page::isFantasyClicked) {
-        Books_page::drawBooksPage(window, file_management::fantasy, "fantasy");
+        Books_page::drawBooksPage(window, file_management::fantasy);
     }
     else if (Books_page::isMysteryClicked) {
-        Books_page::drawBooksPage(window, file_management::mystery, "mystery");
+        Books_page::drawBooksPage(window, file_management::mystery);
     }
     else if (Books_page::isNonfictionClicked) {
-        Books_page::drawBooksPage(window, file_management::non_fiction, "nonfiction");
+        Books_page::drawBooksPage(window, file_management::non_fiction);
     }
     else if (Books_page::isScifiClicked) {
-        Books_page::drawBooksPage(window, file_management::science_fiction, "scifi");
+        Books_page::drawBooksPage(window, file_management::science_fiction);
     }
     else if (Books_page::isRomanceClicked) {
-        Books_page::drawBooksPage(window, file_management::romance, "romance");
+        Books_page::drawBooksPage(window, file_management::romance);
+    }
+}
+
+void Books_page::BookSelected(Vector2f pos, vector<Book>genre)
+{
+    Book BookToBeReturned;
+    for (int i = 0; i < BookPreviewVector.size(); i++) {
+        if (BookPreviewVector[i]->image.pic.getGlobalBounds().contains(pos)) {
+            file_management::selectedBook = BookPreviewVector[i]->bookName;
+        }
+    }
+    BookDetails_page::setBookDetails_page(Books_page::selectGenre());
+    Books_page::isBookspageVisible = false;
+    BookDetails_page::isBookDetailsVisible = true;
+}
+
+vector<Book> Books_page::selectGenre() {
+    if (isFantasyClicked) {
+        return file_management::fantasy;
+    }
+    else if (isMysteryClicked) {
+        return file_management::mystery;
+    }
+    else if (isScifiClicked) {
+        return file_management::science_fiction;
+    }
+    else if (isRomanceClicked) {
+        return file_management::romance;
+    }
+    else if (isNonfictionClicked) {
+        return file_management::non_fiction;
     }
 }
 

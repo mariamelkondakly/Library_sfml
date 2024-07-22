@@ -101,6 +101,33 @@ texts::texts(float posx, float posy, string textContent,char isTitle, int colors
         static_cast<sf::Uint8>(colors[2])));
 
 }
+string texts::wrapText(const std::string& text, float maxWidth) {
+    std::stringstream wrappedText;
+    std::stringstream lineStream;
+    std::string word;
+    float spaceWidth = fonts.normal.getGlyph(' ', 25, false).advance;
+    float lineWidth = 0.f;
+
+    std::istringstream textStream(text);
+    while (textStream >> word) {
+        float wordWidth = 0.f;
+        for (char c : word) {
+            wordWidth += fonts.normal.getGlyph(c, 25, false).advance;
+        }
+
+        if (lineWidth + wordWidth + spaceWidth > maxWidth) {
+            wrappedText << lineStream.str() << '\n';
+            lineStream.str("");
+            lineStream.clear();
+            lineWidth = 0.f;
+        }
+
+        lineStream << word << ' ';
+        lineWidth += wordWidth + spaceWidth;
+    }
+    wrappedText << lineStream.str();
+    return wrappedText.str();
+}
 
 
 Circle::Circle(float posx, float posy, string textContent) {
@@ -199,7 +226,6 @@ photos::photos(string path, float posx, float posy,float scalex, float scaley) {
     pic.setTexture(picTexture);
     pic.setPosition(posx, posy);
     pic.setScale(scalex, scaley);
-    std::cerr << "Image Texture Address: " << &picTexture << std::endl;
 }
 photos::photos() : picTexture(), pic() {} // Default constructor definition
 

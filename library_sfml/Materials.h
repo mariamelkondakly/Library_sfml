@@ -3,6 +3,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 using namespace sf;
@@ -41,6 +42,7 @@ public:
 	Text text;
 	texts(float posx, float posy, string textContent, char isTitle, int colors[3]);
 	texts();
+	string wrapText(const std::string& text, float maxWidth);
 };
 
 class colors {
