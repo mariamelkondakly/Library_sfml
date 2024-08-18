@@ -14,7 +14,7 @@
 using namespace std;
 int main() {
     file_management::file_to_sizes();
-    file_management::files_to_vectors();
+    file_management::files_to_maps();
     file_management::file_to_users();
 
 
@@ -105,11 +105,13 @@ int main() {
                     }
                     else if (Books_page::isBookspageVisible) {
                         navbar::onNavClicked(StartingmousePosition, Books_page::isBookspageVisible);
-                        Books_page::BookSelected(StartingmousePosition, Books_page::selectGenre());
+                        Books_page::BookSelected(StartingmousePosition);
 
                     }
                     else if (BookDetails_page::isBookDetailsVisible) {
                         navbar::onNavClicked(StartingmousePosition, BookDetails_page::isBookDetailsVisible);
+                        BookDetails_page::onAddToCartClicked(StartingmousePosition,Books_page::selectGenre());
+                        BookDetails_page::onGoBackClicked(StartingmousePosition, Books_page::selectGenre());
                     }
 
                 }
@@ -175,7 +177,7 @@ int main() {
         window.display();
     }
     file_management::sizes_to_file();
-    file_management::vectors_to_files();
+    file_management::maps_to_files();
     file_management::users_to_file();
     return 0;
 }

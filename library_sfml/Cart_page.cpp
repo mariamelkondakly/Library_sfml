@@ -14,15 +14,16 @@ void Cart_page::enableScrolling()
 float Cart_page::booksSetUp()
 {
 	items.clear();
-	file_management::selectedUser.totalPrice = 0;
-	file_management::selectedUser.calculateTotalPrice();
+	file_management::users[file_management::selectedUser].totalPrice = 0;
+	file_management::users[file_management::selectedUser].calculateTotalPrice();
 	book_cart_display book;
 	float pos = 300;
-	for (int i = 0; i < file_management::selectedUser.cart_vector.size(); i++) {
-		book = book_cart_display(pos, file_management::selectedUser.cart_vector[i]);
+	for (int i = 0; i < file_management::users[file_management::selectedUser].cart_vector.size(); i++) {
+		book = book_cart_display(pos, file_management::users[file_management::selectedUser].cart_vector[i]);
 		items.push_back(book);
 		pos += 200;
 	}
+
 
 
 
@@ -33,7 +34,7 @@ void Cart_page::drawCart(RenderWindow& window)
 {
 	items.clear();  
 	float pos=booksSetUp()+50;
-	string prices = to_string(file_management::selectedUser.totalPrice) + " $";
+	string prices = to_string(file_management::users[file_management::selectedUser].totalPrice) + " $";
 	totalprice = texts(200, pos,prices, 't', colors::title);
 	checkout = buttons(600, pos, "Check out", false);
 	navbar::readerNavDraw(window, false);
@@ -70,10 +71,12 @@ void Cart_page::oncheckoutHover(Vector2f pos)
 void Cart_page::onCheckoutClicked(Vector2f pos)
 {
 	if (checkout.button.getGlobalBounds().contains(pos)) {
-		for (int i = 0; i < file_management::selectedUser.cart_vector.size(); i++) {
-			file_management::selectedUser.boughtBooks.insert(file_management::selectedUser.boughtBooks.begin(),file_management::selectedUser.cart_vector[i]);
+
+		for (int i = 0; i < file_management::users[file_management::selectedUser].cart_vector.size(); i++) {
+			cout << "Entered" << endl;
+			file_management::users[file_management::selectedUser].boughtBooks.push_back(file_management::users[file_management::selectedUser].cart_vector[i]);
 		}
-		file_management::selectedUser.cart_vector.clear();
+		file_management::users[file_management::selectedUser].cart_vector.clear();
 		isCartVisible = false;
 		History_page::isHistoryVisible = true;
 	}

@@ -21,12 +21,11 @@ public:
 class readersbooks {
 public:
     string title;
-    string status;
     string price;
     string quantity;
     readersbooks();
 
-    readersbooks(string name, string cost, string quantity);
+    readersbooks(string name, string cost);
 
 };
 

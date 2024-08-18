@@ -7,27 +7,28 @@ texts BookDetails_page::authorName;
 texts BookDetails_page::type; 
 texts BookDetails_page::amountAvailable; 
 texts BookDetails_page::cost;
+texts BookDetails_page::warning;
 buttons BookDetails_page::AddToCart, BookDetails_page::GoBack;
 bool BookDetails_page::isBookDetailsVisible=false;
+bool BookDetails_page::isWarningVisible = false;
 BookDetails_page::BookDetails_page()
 {
 }
-Book BookDetails_page::setBookDetails_page(vector<Book> genre) {
+
+void BookDetails_page::enableScrolling() {
+	Scrollable::setLowerBound(AddToCart.button.getPosition().y + AddToCart.button.getScale().y + 300);
+}
+
+Book BookDetails_page::setBookDetails_page(map<string, Book> genre) {
 	Book book;
 	isBookDetailsVisible = false;
-	cout << file_management::selectedBook;
-	for (int i = 0; i < genre.size(); i++) {
-		if (genre[i].title == file_management::selectedBook) {
-			book = genre[i];
-			break;
-		}
-	}
+	book = genre[file_management::selectedBook];
 	string desc=description.wrapText(book.description, 1000);
 	bookCover = new photos(book.path, 100, 200, 0.75, 0.75);
 	bookTitle = texts(700, 200, book.title, 't', colors::title);
 	authorName = texts(700, 350, book.author, 'n', colors::warning);
 	description = texts(700, 450,desc , 'w', colors::ntexts);
-
+	warning = texts(700, 1300, "Unfortunatley, the book is currently unavailable", 'w', colors::warning);
 	FloatRect descriptionBounds = description.text.getGlobalBounds();
 	float desEnd = descriptionBounds.top + descriptionBounds.height;
 	rating = texts(300, 1000, book.review, 'n', colors::success);
@@ -40,16 +41,36 @@ Book BookDetails_page::setBookDetails_page(vector<Book> genre) {
 	}
 	else {
 		amountAvailable = texts(700, desEnd + 120, "This book isn't available now.", 'n', colors::warning);
-
+		             
 	}
 
 	return book;
 }
-void BookDetails_page::enableScrolling() {
-	Scrollable::setLowerBound(AddToCart.button.getPosition().y + AddToCart.button.getScale().y + 300);
+
+void BookDetails_page::onAddToCartClicked(Vector2f pos,map<string, Book> genre)
+{
+	if (AddToCart.button.getGlobalBounds().contains(pos)&& genre[file_management::selectedBook].isAvailable) {
+		readersbooks book(genre[file_management::selectedBook].title, genre[file_management::selectedBook].price);
+		file_management::users[file_management::selectedUser].cart_vector.push_back(book);
+		BookDetails_page::isBookDetailsVisible = false;
+		Cart_page::isCartVisible = true;
+		isWarningVisible = false;
+
+		
+	}
+	else if (AddToCart.button.getGlobalBounds().contains(pos) && !genre[file_management::selectedBook].isAvailable) {
+		isWarningVisible = true;
+	}
+}
+void BookDetails_page::onGoBackClicked(Vector2f pos, map<string, Book> genre)
+{
+	if (GoBack.button.getGlobalBounds().contains(pos)) {
+		BookDetails_page::isBookDetailsVisible = false;
+		Books_page::isBookspageVisible = true;
+	}
 }
 void BookDetails_page::drawBookDetailspage(RenderWindow& window) {
-    if (file_management::selectedUser.usertype == "Admin") {
+    if (file_management::users[file_management::selectedUser].usertype == "Admin") {
         navbar::adminNavDraw(window, false);
     }
     else {
@@ -66,6 +87,7 @@ void BookDetails_page::drawBookDetailspage(RenderWindow& window) {
     window.draw(authorName.text);
     window.draw(rating.text);
 	window.draw(amountAvailable.text);
-	
+	if (isWarningVisible) {		window.draw(warning.text);}
+
 }
 

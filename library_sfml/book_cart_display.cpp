@@ -36,22 +36,24 @@ void book_cart_display::buttonClickedDetection(Vector2f pos, RenderWindow& windo
 			History_page::isHistoryVisible = false;
 			Cart_page::isCartVisible = false;
 			cout << "selected book: " << file_management::selectedBook << endl;
-			//isBookVisible = true;
+			BookDetails_page::isBookDetailsVisible = true;
 			break;
 			return;
 		}
 		else if (Cart_page::isCartVisible && books[i].deleteFromCart.button.getGlobalBounds().contains(pos)) {
 			file_management::selectedBook = Cart_page::items[i].bookname.text.getString();
 			cout << "deleted book: " << file_management::selectedBook << endl;
+			for (int i = 0; i < file_management::users[file_management::selectedUser].cart_vector.size(); i++) {
+				if (file_management::users[file_management::selectedUser].cart_vector[i].title == file_management::selectedBook) {
+					file_management::users[file_management::selectedUser].cart_vector.erase(file_management::users[file_management::selectedUser].cart_vector.begin() + i);
+				}
+			}
 			break;
+
 		}
 
 	}
-	for (int i = 0; i < file_management::selectedUser.cart_vector.size(); i++) {
-		if (file_management::selectedUser.cart_vector[i].title == file_management::selectedBook) {
-			file_management::selectedUser.cart_vector.erase(file_management::selectedUser.cart_vector.begin() + i);
-		}
-	}
+	
 
 
 }

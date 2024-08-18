@@ -14,8 +14,8 @@ float History_page::booksSetUp()
 {
 	book_cart_display book;
 	float pos = 300;
-	for (int i = 0; i < file_management::selectedUser.boughtBooks.size(); i++) {
-		book = book_cart_display(pos, file_management::selectedUser.boughtBooks[i]);
+	for (int i = 0; i < file_management::users[file_management::selectedUser].boughtBooks.size(); i++) {
+		book = book_cart_display(pos, file_management::users[file_management::selectedUser].boughtBooks[i]);
 		boughtItems.push_back(book);
 		pos += 200;
 	}

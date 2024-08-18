@@ -20,9 +20,8 @@ readersbooks::readersbooks()
 {
 }
 
-readersbooks::readersbooks(string name, string cost, string q)
+readersbooks::readersbooks(string name, string cost)
 {
 	title = name;
 	price = cost;
-	quantity = q;
 }

@@ -26,8 +26,7 @@ void BookPreview::booksDraw(RenderWindow& window, BookPreview& book) {
     window.draw(book.image.pic);
 }
 
-void Books_page::drawBooksPage(RenderWindow& window, vector<Book> genre) {
-
+void Books_page::drawBooksPage(RenderWindow& window, map<string, Book> genre) {
     // Clear existing BookPreview pointers
     for (BookPreview* bookPreview : BookPreviewVector) {
         delete bookPreview;
@@ -35,22 +34,25 @@ void Books_page::drawBooksPage(RenderWindow& window, vector<Book> genre) {
     BookPreviewVector.clear();
 
     float posx;
-    int counter = 1;
+    int counter = 0;
     posy = 300;
+
+    auto it = genre.begin(); // Initialize the iterator
 
     for (int i = 0; i < 3; i++) {
         posx = 150;
-        for (int j = 0; j < 4 && counter <= genre.size(); j++) {
-            BookPreview* book = new BookPreview(genre[counter - 1], posx, posy);
+        for (int j = 0; j < 4 && it != genre.end(); j++) {
+            BookPreview* book = new BookPreview(it->second, posx, posy);
             BookPreviewVector.push_back(book);
 
             posx += 400;
             counter++;
+            it++; // Move the iterator to the next element
         }
         posy += 600;
     }
 
-    if (file_management::selectedUser.usertype == "Admin") {
+    if (file_management::users[file_management::selectedUser].usertype == "Admin") {
         navbar::adminNavDraw(window, false);
     }
     else {
@@ -61,8 +63,8 @@ void Books_page::drawBooksPage(RenderWindow& window, vector<Book> genre) {
         BookPreview::booksDraw(window, *bookPreview);
     }
     window.draw(title.text);
-
 }
+
 
 void Books_page::genreSelection(RenderWindow& window)
 {
@@ -83,20 +85,20 @@ void Books_page::genreSelection(RenderWindow& window)
     }
 }
 
-void Books_page::BookSelected(Vector2f pos, vector<Book>genre)
+void Books_page::BookSelected(Vector2f pos)
 {
-    Book BookToBeReturned;
     for (int i = 0; i < BookPreviewVector.size(); i++) {
         if (BookPreviewVector[i]->image.pic.getGlobalBounds().contains(pos)) {
             file_management::selectedBook = BookPreviewVector[i]->bookName;
+            BookDetails_page::setBookDetails_page(Books_page::selectGenre());
+            Books_page::isBookspageVisible = false;
+            BookDetails_page::isBookDetailsVisible = true;
+            break;
         }
     }
-    BookDetails_page::setBookDetails_page(Books_page::selectGenre());
-    Books_page::isBookspageVisible = false;
-    BookDetails_page::isBookDetailsVisible = true;
 }
 
-vector<Book> Books_page::selectGenre() {
+map<string,Book> Books_page::selectGenre() {
     if (isFantasyClicked) {
         return file_management::fantasy;
     }
