@@ -10,8 +10,9 @@ class BookDetails_page
 public:
 	BookDetails_page();
 	static photos* bookCover;
-	static texts bookTitle, description, rating, authorName, type, amountAvailable, cost, warning;
+	static texts bookTitle, description, rating, authorName, amountAvailable, cost, warning;
 	static buttons AddToCart, GoBack;
+	static TextField quantity;
 	static bool isBookDetailsVisible, isWarningVisible;
 	static string details;
 	static Book setBookDetails_page(map<string,Book>);

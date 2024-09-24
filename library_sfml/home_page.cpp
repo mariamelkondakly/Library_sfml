@@ -26,7 +26,7 @@ bool home_page::isHomepageVisible = false;
 
 
 void home_page::drawHomepage(RenderWindow& window) {
-    if (file_management::users[file_management::selectedUser].usertype=="Admin") {
+    if (file_management::users[file_management::selectedUser].isAdmin) {
         navbar::adminNavDraw(window, true);
     }
     else {

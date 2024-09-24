@@ -9,7 +9,6 @@ using namespace std;
 class User
 {
 public:
-    string usertype;
     string username;
     string password;
     int totalPrice;

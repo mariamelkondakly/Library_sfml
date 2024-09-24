@@ -75,6 +75,7 @@ public:
 	Text input;
 	string data;
 	TextField(float posx, float posy);
+	TextField();
 	void fieldDraw(RenderWindow& window);
 	FloatRect fieldFloat;
 	void onselect();

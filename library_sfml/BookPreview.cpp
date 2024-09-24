@@ -52,7 +52,7 @@ void Books_page::drawBooksPage(RenderWindow& window, map<string, Book> genre) {
         posy += 600;
     }
 
-    if (file_management::users[file_management::selectedUser].usertype == "Admin") {
+    if (file_management::users[file_management::selectedUser].isAdmin) {
         navbar::adminNavDraw(window, false);
     }
     else {

@@ -2,10 +2,10 @@
 book_cart_display::book_cart_display(float posy, readersbooks book)
 {
 	bookname = texts(200, posy, book.title, 'n', colors::ntexts);
-	cost = texts(650, posy, book.price, 'n', colors::warning);
+	cost = texts(650, posy, to_string(book.price), 'n', colors::warning);
 	showDetails = buttons(1100, posy, "Show details", true);
 	deleteFromCart = buttons(1400, posy, "Remove", true);
-	quantity = texts(900, posy, book.quantity, 'n', colors::success);
+	quantity = texts(900, posy, to_string(book.quantity), 'n', colors::success);
 
 }
 

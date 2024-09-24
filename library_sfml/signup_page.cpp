@@ -73,13 +73,11 @@ bool signup_page::onSignUpSubmit(User& user, String username, String password, t
 		}
 		user.username = username;
 		user.password = password;
-		user.usertype = user.isAdmin ? "Admin" : "Reader";
 		file_management::users[username] = user;
 	}
 
 	user.username = "";
 	user.password = "";
-	user.usertype = "";
 	user.isAdmin = false;
 	signup_field_username.data = "";
 	signup_field_password.data = "";
@@ -108,7 +106,6 @@ bool signup_page::onLoginSubmit(User& user, String username, String password, te
 
 	user.username = "";
 	user.password = "";
-	user.usertype = "";
 	user.isAdmin = false;
 	login_field_username.data = "";
 	login_field_password.data = "";
