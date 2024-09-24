@@ -8,25 +8,25 @@ public:
     string title;
     string author;
     string description;
-    string type;
-    string price;
-    string numofpages;
+    string genre;
+    double price;
+    int numofpages;
     string review;
-    string quantity;
+    int quantity;
     string path;
     bool isAvailable;
-    Book (string _title, string _author, string _description, string _type, string _status, string _price, string _numofpages, string _review, string _quantity);
+    Book(string _title, string _author, string _description, string _type, string _status, double _price, int _numofpages, string _review, int _quantity);
     Book();
 };
 class readersbooks {
 public:
+    string username;
     string title;
-    string status;
-    string price;
-    string quantity;
+    float price;
+    int quantity;
     readersbooks();
 
-    readersbooks(string name, string cost, string quantity);
+    readersbooks(string name,string username, float cost, int quantity);
 
 };
 

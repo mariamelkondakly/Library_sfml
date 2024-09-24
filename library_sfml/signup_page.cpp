@@ -67,26 +67,17 @@ bool signup_page::onSignUpSubmit(User& user, String username, String password, t
 		return false;
 	}
 	else {
-		for (int i = 0; i < file_management::users.size(); i++) {
-			if (username == file_management::users[i].username) {
-				warning.text.setString("Username already used, try another username.");
-				return false;
-			}
+		if (file_management::users.find(username) != file_management::users.end()) {
+			warning.text.setString("Username already used, try another username.");
+			return false;
 		}
 		user.username = username;
 		user.password = password;
-		if (user.isAdmin) {
-			user.usertype = "Admin";
-		}
-		else {
-			user.usertype = "Reader";
-		}
-		file_management::users.push_back(user);
-		
+		file_management::users[username] = user;
 	}
+
 	user.username = "";
 	user.password = "";
-	user.usertype = "";
 	user.isAdmin = false;
 	signup_field_username.data = "";
 	signup_field_password.data = "";
@@ -95,7 +86,6 @@ bool signup_page::onSignUpSubmit(User& user, String username, String password, t
 	admin_check.onUncheck();
 	reader_check.onUncheck();
 
-
 	return true;
 }
 
@@ -103,39 +93,28 @@ bool signup_page::onLoginSubmit(User& user, String username, String password, te
 	warning.text.setPosition(500, 690);
 	if (username.getSize() == 0 || password.getSize() == 0) {
 		warning.text.setString("Don't leave the username or password empty.");
-		
 		return false;
 	}
 
-	bool userFound = false;
-	for (auto& u : file_management::users) {
-		if (username == u.username && password == u.password) {
-			file_management::selectedUser = u;
-			userFound = true;
-			break;
-		}
-	}
-
-	if (!userFound) {
+	auto it = file_management::users.find(username);
+	if (it == file_management::users.end() || it->second.password != password) {
 		warning.text.setString("Invalid username or password.");
 		return false;
 	}
-	else {
-		user.username = "";
-		user.password = "";
-		user.usertype = "";
-		user.isAdmin = false;
-		login_field_username.data = "";
-		login_field_password.data = "";
-		login_field_username.input.setString("");
-		login_field_password.input.setString("");
-		readersbooks dummy = readersbooks("Serpant & Dove", "20", "2");
-		readersbooks dummy2 = readersbooks("Ignite Me", "1000", "50");
-		file_management::selectedUser.cart_vector.push_back(dummy);
-		file_management::selectedUser.cart_vector.push_back(dummy2);
-		return true;
-	}
+
+	file_management::selectedUser = it->first;
+
+	user.username = "";
+	user.password = "";
+	user.isAdmin = false;
+	login_field_username.data = "";
+	login_field_password.data = "";
+	login_field_username.input.setString("");
+	login_field_password.input.setString("");
+
+	return true;
 }
+
 
 void signup_page::onSignupHover(Vector2f pos)
 {

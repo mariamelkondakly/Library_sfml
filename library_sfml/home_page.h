@@ -8,6 +8,7 @@
 #include "Materials.h"
 #include "ScrollableView.h"
 #include "BookPreview.h"
+using namespace sql;
 class home_page
 {
 public:

@@ -1,11 +1,11 @@
 #include "Book.h"
 
-Book::Book(string _title, string _author, string _description, string _type, string _status, string _price, string _numofpages, string _review, string _quantity)
+Book::Book(string _title, string _author, string _description, string _type, string _status, double _price, int _numofpages, string _review, int _quantity)
 {
 		title = _title;
 		author = _author;
 		description = _description;
-		type = _type;
+		genre = _type;
 		price = _price;
 		numofpages = _numofpages;
 		review = _review;
@@ -20,9 +20,10 @@ readersbooks::readersbooks()
 {
 }
 
-readersbooks::readersbooks(string name, string cost, string q)
+readersbooks::readersbooks(string name, string username, float cost, int quantity)
 {
+	this->username = username;
+	this->price = quantity;
 	title = name;
 	price = cost;
-	quantity = q;
 }

@@ -25,15 +25,15 @@ public:
     static vector<BookPreview*> BookPreviewVector;
     static float posy;
     static void enableScrolling();
-    static void drawBooksPage(RenderWindow& window, vector<Book> genre);
+    static void drawBooksPage(RenderWindow& window, map<string, Book> genre);
     static void genreSelection(RenderWindow& window);
-    static void BookSelected(Vector2f pos, vector<Book> genre);
+    static void BookSelected(Vector2f pos);
     static bool isFantasyClicked;
     static bool isMysteryClicked;
     static bool isScifiClicked;
     static bool isNonfictionClicked;
     static bool isRomanceClicked;
-    static vector<Book> selectGenre();
+    static map<string, Book> selectGenre();
     // Destructor to manage memory
     ~Books_page();
 };

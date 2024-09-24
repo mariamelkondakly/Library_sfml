@@ -158,6 +158,7 @@ void Circle::onUncheck() {
     circle.setFillColor(Color(210, 105, 30, 128));
 }
 
+TextField::TextField(){}
 TextField::TextField(float posx, float posy) {
 
     field.setSize(Vector2f(370, 40));

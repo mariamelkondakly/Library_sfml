@@ -2,10 +2,10 @@
 book_cart_display::book_cart_display(float posy, readersbooks book)
 {
 	bookname = texts(200, posy, book.title, 'n', colors::ntexts);
-	cost = texts(650, posy, book.price, 'n', colors::warning);
+	cost = texts(650, posy, to_string(book.price), 'n', colors::warning);
 	showDetails = buttons(1100, posy, "Show details", true);
 	deleteFromCart = buttons(1400, posy, "Remove", true);
-	quantity = texts(900, posy, book.quantity, 'n', colors::success);
+	quantity = texts(900, posy, to_string(book.quantity), 'n', colors::success);
 
 }
 
@@ -36,22 +36,24 @@ void book_cart_display::buttonClickedDetection(Vector2f pos, RenderWindow& windo
 			History_page::isHistoryVisible = false;
 			Cart_page::isCartVisible = false;
 			cout << "selected book: " << file_management::selectedBook << endl;
-			//isBookVisible = true;
+			BookDetails_page::isBookDetailsVisible = true;
 			break;
 			return;
 		}
 		else if (Cart_page::isCartVisible && books[i].deleteFromCart.button.getGlobalBounds().contains(pos)) {
 			file_management::selectedBook = Cart_page::items[i].bookname.text.getString();
 			cout << "deleted book: " << file_management::selectedBook << endl;
+			for (int i = 0; i < file_management::users[file_management::selectedUser].cart_vector.size(); i++) {
+				if (file_management::users[file_management::selectedUser].cart_vector[i].title == file_management::selectedBook) {
+					file_management::users[file_management::selectedUser].cart_vector.erase(file_management::users[file_management::selectedUser].cart_vector.begin() + i);
+				}
+			}
 			break;
+
 		}
 
 	}
-	for (int i = 0; i < file_management::selectedUser.cart_vector.size(); i++) {
-		if (file_management::selectedUser.cart_vector[i].title == file_management::selectedBook) {
-			file_management::selectedUser.cart_vector.erase(file_management::selectedUser.cart_vector.begin() + i);
-		}
-	}
+	
 
 
 }

@@ -59,7 +59,7 @@ void navbar::onNavHover(Vector2f pos)
 	if (logout.button.getGlobalBounds().contains(pos)) {
 		logout.buttonText.setFillColor(Color(210, 105, 30));
 		home.buttonText.setFillColor(Color(210, 105, 30, 128));
-		if (file_management::selectedUser.usertype=="Admin") {
+		if (file_management::users[file_management::selectedUser].isAdmin) {
 			orders.buttonText.setFillColor(Color(210, 105, 30, 128));
 		}
 		else {
@@ -71,7 +71,7 @@ void navbar::onNavHover(Vector2f pos)
 	else if (home.button.getGlobalBounds().contains(pos)) {
 		logout.buttonText.setFillColor(Color(210, 105, 30, 128));
 		home.buttonText.setFillColor(Color(210, 105, 30));
-		if (file_management::selectedUser.usertype=="Admin") {
+		if (file_management::users[file_management::selectedUser].isAdmin) {
 			orders.buttonText.setFillColor(Color(210, 105, 30, 128));
 		}
 		else {
@@ -80,19 +80,19 @@ void navbar::onNavHover(Vector2f pos)
 		}
 
 	}
-	else if (file_management::selectedUser.usertype=="Admin" && orders.button.getGlobalBounds().contains(pos)) {
+	else if (file_management::users[file_management::selectedUser].isAdmin&& orders.button.getGlobalBounds().contains(pos)) {
 		logout.buttonText.setFillColor(Color(210, 105, 30, 128));
 		orders.buttonText.setFillColor(Color(210, 105, 30));
 		home.buttonText.setFillColor(Color(210, 105, 30,128));  
 	}
-	else if (file_management::selectedUser.usertype == "Reader" && cart.button.getGlobalBounds().contains(pos)) {
+	else if (!file_management::users[file_management::selectedUser].isAdmin && cart.button.getGlobalBounds().contains(pos)) {
 
 		logout.buttonText.setFillColor(Color(210, 105, 30, 128));
 		cart.buttonText.setFillColor(Color(210, 105, 30));
 		home.buttonText.setFillColor(Color(210, 105, 30, 128));
 		history.buttonText.setFillColor(Color(210, 105, 30, 128));
 	}
-	else if (file_management::selectedUser.usertype == "Reader" && history.button.getGlobalBounds().contains(pos)) {
+	else if (!file_management::users[file_management::selectedUser].isAdmin && history.button.getGlobalBounds().contains(pos)) {
 		logout.buttonText.setFillColor(Color(210, 105, 30, 128));
 		cart.buttonText.setFillColor(Color(210, 105, 30, 128));
 		home.buttonText.setFillColor(Color(210, 105, 30, 128));
@@ -101,7 +101,7 @@ void navbar::onNavHover(Vector2f pos)
 	else {
 		home.buttonText.setFillColor(Color(210, 105, 30, 128));
 		logout.buttonText.setFillColor(Color(210, 105, 30, 128));
-		if (file_management::selectedUser.usertype=="Admin") {
+		if (file_management::users[file_management::selectedUser].isAdmin) {
 			orders.buttonText.setFillColor(Color(210, 105, 30, 128));
 		}
 		else {
